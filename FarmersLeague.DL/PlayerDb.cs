@@ -11,8 +11,8 @@ namespace FarmersLeague.DL
         public void AddPlayer(Player newPlayer)
         {
             // the sql query. I match @ placeholders to properties of player class like a bridge for security i assume.
-            string query = "INSERT INTO Player (Name, PlayerID, Age, Position, BaseAttack, BaseDefence, MarketValue, IsStarting, IsAvailable, Condition, Happiness, Composure, Aggression, SeasonGoals, SeasonAssists, YellowCards, RedCards) " +
-                           "VALUES (@Name, @PlayerID, @Age, @Position, @BaseAttack, @BaseDefence, @MarketValue, 1, 1, @Condition, @Happiness, @Composure, @Aggression, @SeasonGoals, @SeasonAssists, @YellowCards, @RedCards)";
+            string query = "INSERT INTO Player (Name, Age, Position, BaseAttack, BaseDefence, MarketValue, IsAvailable, Condition, Happiness, Composure, Aggression, SeasonGoals, SeasonAssists, YellowCards, RedCards) " +
+                           "VALUES (@Name, @Age, @Position, @BaseAttack, @BaseDefence, @MarketValue, 1, @Condition, @Happiness, @Composure, @Aggression, @SeasonGoals, @SeasonAssists, @YellowCards, @RedCards)";
 
             // i connect my database using the connection string i made above. 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -28,8 +28,7 @@ namespace FarmersLeague.DL
                 command.Parameters.AddWithValue("@Position", newPlayer.Position);
                 command.Parameters.AddWithValue("@BaseAttack", newPlayer.BaseAttack);
                 command.Parameters.AddWithValue("@BaseDefence", newPlayer.BaseDefence);
-                command.Parameters.AddWithValue("@MarketValue", newPlayer.MarketValue);
-                command.Parameters.AddWithValue("@IsStarting", newPlayer.IsStarting);   
+                command.Parameters.AddWithValue("@MarketValue", newPlayer.MarketValue);   
                 command.Parameters.AddWithValue("@IsAvailable", newPlayer.IsAvailable); 
                 command.Parameters.AddWithValue("@Condition", newPlayer.Condition); 
                 command.Parameters.AddWithValue("@Happiness", newPlayer.Happiness);

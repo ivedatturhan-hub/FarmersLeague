@@ -9,7 +9,6 @@
         public int BaseAttack { get; private set; }
         public int BaseDefence { get; private set; }
         public double MarketValue { get; private set; }
-        public bool IsStarting { get; private set; }
         public bool IsAvailable { get; private set; }
         public int Condition { get; private set; } = 100;
         public int Happiness { get; private set; } = 100;

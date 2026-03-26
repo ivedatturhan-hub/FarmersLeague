@@ -8,7 +8,8 @@ namespace FarmersLeague.Pages
 {
     public class AddPlayerModel : PageModel
     {
-        // 1. Create unlocked temporary variables to catch the web form data
+        // I created these temporart properties to hold the user input from the form. 
+        // These will be used to fill the constructor of the player class which is read only so I cannot reach directly into the main constructor.
         [BindProperty]
         public string InputName { get; set; }
 
@@ -37,14 +38,14 @@ namespace FarmersLeague.Pages
 
         public void OnPost()
         {
-            // 2. Safely create the secure Player object using the constructor!
+            // Creating the player using the user input.
             Player addedPlayer = new Player(InputName, InputAge, InputPosition, InputAttack, InputDefence, InputMarketValue, InputComposure, InputAggression);
 
             PlayerManager manager = new PlayerManager();
 
             try
             {
-                // 3. Hand the secure player to the Bouncer
+                // check if it fits the rules I set.
                 manager.CreateNewPlayer(addedPlayer);
                 Message = "Success! Player added to the database.";
             }
