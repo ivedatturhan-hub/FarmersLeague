@@ -1,20 +1,17 @@
-﻿using System;               // This lets us use 'Exceptions' (Error messages)
-using FarmersLeague.ML;     // Lets us see the Player object
-using FarmersLeague.DL;     // Lets us see the Database pipe
+﻿using System;               
+using FarmersLeague.ML;     
+using FarmersLeague.DL;     
 
 namespace FarmersLeague.BL
 {
     public class PlayerManager
     {
-        // 1. Give the manager a direct phone line to the Data Layer
         private PlayerDb _playerDb = new PlayerDb();
 
-        // This method receives the player from your web page
-        public void CreateNewPlayer(Player newPlayer)
+        public void CreateNewPlayer(Player newPlayer) 
         {
-            // --- THE RULES (BUSINESS LOGIC) ---
+            //my rules for creating a new player
 
-            // Rule 1: The player must have a name
             if (string.IsNullOrWhiteSpace(newPlayer.Name))
             {
                 throw new Exception("Error: A player must have a name!");
@@ -68,13 +65,7 @@ namespace FarmersLeague.BL
                 throw new Exception("Error: Position must be Forward, Midfielder, Defender, or Goalkeeper.");
             }
 
-            // You can add more rules here later (like checking if Age > 15, etc.)
-
-
-            // --- THE ACTION ---
-
-            // If the code makes it down here, it means no rules were broken!
-            // Hand the player safely to the Data Layer to be saved.
+            // if the code made it here, this adds the player to do db
             _playerDb.AddPlayer(newPlayer);
         }
     }

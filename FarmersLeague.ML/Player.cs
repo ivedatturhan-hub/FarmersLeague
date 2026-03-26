@@ -2,24 +2,36 @@
 {
     public class Player
     {
-        public int PlayerID { get; set; }
-        public int TeamID { get; set; }
+        public int PlayerID { get; private set; }
         public string Name { get; set; }
-        public int Age { get; set; }
-        public string Position { get; set; } 
-        public int BaseAttack { get; set; }
-        public int BaseDefence { get; set; }
-        public double MarketValue { get; set; }
-        public bool IsStarting { get; set; }
-        public bool IsAvailable { get; set; }
-        public int Condition { get; set; }
-        public int Happiness { get; set; }
-        public int Composure { get; set; }
-        public int Aggression { get; set; }
-        public int SeasonGoals { get; set; } = 0;   
-        public int SeasonAssists { get; set; } = 0;
-        public int YellowCards { get; set; } = 0;
-        public int RedCards { get; set; } = 0;
+        public int Age { get; private set; }
+        public string Position { get; private set; }
+        public int BaseAttack { get; private set; }
+        public int BaseDefence { get; private set; }
+        public double MarketValue { get; private set; }
+        public bool IsStarting { get; private set; }
+        public bool IsAvailable { get; private set; }
+        public int Condition { get; private set; } = 100;
+        public int Happiness { get; private set; } = 100;
+        public int Composure { get; private set; }
+        public int Aggression { get; private set; }
+        public int SeasonGoals { get; private set; } = 0;   
+        public int SeasonAssists { get; private set; } = 0;
+        public int YellowCards { get; private set; } = 0;
+        public int RedCards { get; private set; } = 0;
+
+
+        public Player(string name, int age, string position, int baseAttack, int baseDefence, double marketValue, int composure, int aggression)
+        {
+            Name = name;
+            Age = age;
+            Position = position;
+            BaseAttack = baseAttack;
+            BaseDefence = baseDefence;
+            MarketValue = marketValue;
+            Composure = composure;
+            Aggression = aggression;
+        }
 
     }
 }

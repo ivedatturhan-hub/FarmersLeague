@@ -1,29 +1,28 @@
-﻿using Microsoft.Data.SqlClient; // This brings in the SQL tools we just downloaded
-using FarmersLeague.ML;       // This lets us use your Player class!
+﻿using Microsoft.Data.SqlClient; 
+using FarmersLeague.ML;      
 
 namespace FarmersLeague.DL
 {
     public class PlayerDb
     {
-        // We will store your connection string here so we don't have to type it every time
         private string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FarmersLeagueDB;Integrated Security=True;";
 
-        // This method requires you to hand it a "Player" object
+        //my method to add a player to the database
         public void AddPlayer(Player newPlayer)
         {
-            // 1. Write the SQL query. Notice we use @ names as placeholders for security.
-            string query = "INSERT INTO Player (Name, TeamID, PlayerID, Age, Position, BaseAttack, BaseDefence, MarketValue, IsStarting, IsAvailable, Condition, Happiness, Composure, Aggression, SeasonGoals, SeasonAssists, YellowCards, RedCards) " +
-                           "VALUES (@Name, @TeamID, @PlayerID, @Age, @Position, @BaseAttack, @BaseDefence, @MarketValue, 1, 1, @Condition, @Happiness, @Composure, @Agression, @SeasonGoals, @SeasonAssists, @YellowCards, @RedCards)";
+            // the sql query. I match @ placeholders to properties of player class like a bridge for security i assume.
+            string query = "INSERT INTO Player (Name, PlayerID, Age, Position, BaseAttack, BaseDefence, MarketValue, IsStarting, IsAvailable, Condition, Happiness, Composure, Aggression, SeasonGoals, SeasonAssists, YellowCards, RedCards) " +
+                           "VALUES (@Name, @PlayerID, @Age, @Position, @BaseAttack, @BaseDefence, @MarketValue, 1, 1, @Condition, @Happiness, @Composure, @Aggression, @SeasonGoals, @SeasonAssists, @YellowCards, @RedCards)";
 
-            // 2. Open the connection pipe to the database
+            // i connect my database using the connection string i made above. 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                // 3. Put the query and the connection together into a Command
+                // the query we matched with the @ placeholders is now a command that can be sent to the database. 
                 SqlCommand command = new SqlCommand(query, connection);
 
-                // 4. Swap out the @ placeholders with the actual data from your ML object
+                // now i swap the placeholders with actual values from database.  
+                //Why do I need to use AddWithValue? I will ask this
                 command.Parameters.AddWithValue("@Name", newPlayer.Name);
-                command.Parameters.AddWithValue("@TeamID", newPlayer.TeamID);
                 command.Parameters.AddWithValue("@PlayerID", newPlayer.PlayerID);
                 command.Parameters.AddWithValue("@Age", newPlayer.Age);
                 command.Parameters.AddWithValue("@Position", newPlayer.Position);
@@ -42,9 +41,7 @@ namespace FarmersLeague.DL
                 command.Parameters.AddWithValue("@RedCards", newPlayer.RedCards);
 
 
-           
-
-                // 5. Turn the pipe on, send the command, and turn it off automatically
+          
                 connection.Open();
                 command.ExecuteNonQuery();
             }

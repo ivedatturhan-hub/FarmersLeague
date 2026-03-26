@@ -1,0 +1,64 @@
+﻿@page
+@model FarmersLeague.Pages.AddPlayerModel
+@{
+    ViewData["Title"] = "Add a New Player";
+}
+
+<h1>Recruit a New Player</h1>
+
+<form method="post">
+    <div>
+        <label>Player Name:</label>
+        <input type="text" asp-for="InputName" required />
+    </div>
+    <br />
+
+    <div>
+    <label>Player Age:</label>
+    <input type="number" asp-for="InputAge" required />
+    </div>
+    <br />
+
+    <div>
+        <label>Player Position (Forward, Midfielder, Defender, Goalkeeper):</label>
+        <input type="text" asp-for="InputPosition" required />
+    </div>
+    <br />
+
+    <div>
+        <label>Base Attack (0-99):</label>
+        <input type="number" asp-for="InputAttack" required />
+    </div>
+    <br />
+
+    <div>
+        <label>Base Defence (0-99):</label>
+        <input type="number" asp-for="InputDefence" required />
+    </div>
+    <br />
+
+    <div>
+        <label>Player Market Value:</label>
+        <input type="number" asp-for="InputMarketValue" step="any" required />
+    </div>
+    <br />
+
+    <div>
+        <label>Player Composure:</label>
+        <input type="number" asp-for="InputComposure" required />
+    </div>
+    <br />
+
+    <div>
+        <label>Player Aggression:</label>
+        <input type="number" asp-for="InputAggression" required />
+    </div>
+    <br />
+
+    <button type="submit">Save Player</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <h3 style="color:red;">@Model.Message</h3>
+}
