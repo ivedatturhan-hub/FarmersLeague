@@ -14,7 +14,7 @@ namespace FarmersLeague.BL
 
             if (string.IsNullOrWhiteSpace(newPlayer.Name))
             {
-                throw new Exception("Error: A player must have a name!");
+                throw new Exception("Error: A player must have a name!"); //throw stops the code no matter what, and shows the message in the brackets
             }
 
 
@@ -65,7 +65,7 @@ namespace FarmersLeague.BL
                 throw new Exception("Error: Position must be Forward, Midfielder, Defender, or Goalkeeper.");
             }
 
-            // if the code made it here, this adds the player to do db
+            // if the code faced no problem, adds the player
             _playerDb.AddPlayer(newPlayer);
         }
     }
