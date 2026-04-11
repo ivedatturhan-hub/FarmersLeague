@@ -1,0 +1,27 @@
+﻿@page
+@model FarmersLeague.UI.Pages.AddTeamModel
+@{
+    ViewData["Title"] = "Name your club!";
+}
+
+<div class="container mt-4">
+    <h1>Found Your Club</h1>
+
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <div class="alert @(Model.Message.Contains("Error") ? "alert-danger" : "alert-success")">
+            @Model.Message
+        </div>
+    }
+
+    <form method="post">
+
+        <div class="form-group mb-3">
+            <label>Club Name</label>
+            <input asp-for="InputTeamName" class="form-control" placeholder="e.g. Eindhoven FC" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Name Your Club</button>
+
+    </form>
+</div>

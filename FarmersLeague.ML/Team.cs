@@ -16,7 +16,7 @@ namespace FarmersLeague.ML
         }
 
         public int TeamID { get; private set; }
-        public int LeagueID { get; private set; }
+        public int LeagueID { get; private set; } = 1; // default value for now, will be updated when I implement the league class
         public string TeamName { get; private set; }
         public decimal Budget { get; private set; } = 100m;
         public int Points { get; private set; } = 0;
@@ -28,9 +28,16 @@ namespace FarmersLeague.ML
 
         //constructor for adding team
 
-        public Team(string teamName)
+        public Team(int leagueID, string teamName, decimal budget, int points, string tacticsString, bool isUserControlled )
         {
-            TeamName = teamName;
+                LeagueID = leagueID;
+                TeamName = teamName;
+                Budget = budget;
+                Points = points;
+                Tactics = Enum.Parse<TeamTactics>(tacticsString);
+            IsUserControlled = isUserControlled;
+                TeamName = teamName;
+
         }
 
         //constructor for database
