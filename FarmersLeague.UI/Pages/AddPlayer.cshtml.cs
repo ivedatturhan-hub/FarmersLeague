@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FarmersLeague.ML;
 using FarmersLeague.BL;
+using static FarmersLeague.ML.Player;
 
 namespace FarmersLeague.Pages
 {
@@ -20,7 +21,7 @@ namespace FarmersLeague.Pages
         public int InputAge { get; set; }
 
         [BindProperty]
-        public string InputPosition { get; set; }
+        public Positions InputPosition { get; set; }
 
         [BindProperty]
         public int InputDefence { get; set; }

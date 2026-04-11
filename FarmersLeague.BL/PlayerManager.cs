@@ -59,11 +59,12 @@ namespace FarmersLeague.BL
                 throw new Exception("Error: Aggression must be between 0 and 100.");
             }
 
-
-            if (newPlayer.Position != "Forward" && newPlayer.Position != "Midfielder" && newPlayer.Position != "Defender" && newPlayer.Position != "Goalkeeper")
+            if (!Enum.IsDefined(typeof(Player.Positions), newPlayer.Position))
             {
-                throw new Exception("Error: Position must be Forward, Midfielder, Defender, or Goalkeeper.");
+                throw new Exception("Error: You must select a valid player position.");
             }
+
+
 
             // if the code faced no problem, adds the player
             _playerDb.AddPlayer(newPlayer);
