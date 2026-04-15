@@ -1,8 +1,7 @@
-﻿using System;               
-using FarmersLeague.ML;     
-using FarmersLeague.DL;     
+﻿using System;                    
+using FarmersLeague.DL;
 
-namespace FarmersLeague.BL
+namespace FarmersLeague.ML
 {
     public class PlayerManager
     {
@@ -67,7 +66,8 @@ namespace FarmersLeague.BL
 
 
             // if the code faced no problem, adds the player
-            _playerDb.AddPlayer(newPlayer);
+            _playerDb.AddPlayer(newPlayer.Name, newPlayer.Age, newPlayer.Position.ToString(), newPlayer.BaseAttack, newPlayer.BaseDefence, Convert.ToDecimal(newPlayer.MarketValue),
+                newPlayer.IsAvailable, newPlayer.Condition, newPlayer.Happiness, newPlayer.Composure, newPlayer.Aggression, newPlayer.SeasonGoals, newPlayer.SeasonAssists, newPlayer.YellowCards, newPlayer.RedCards);
         }
     }
 }

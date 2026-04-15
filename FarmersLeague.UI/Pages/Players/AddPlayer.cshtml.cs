@@ -2,10 +2,9 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FarmersLeague.ML;
-using FarmersLeague.BL;
 using static FarmersLeague.ML.Player;
 
-namespace FarmersLeague.Pages
+namespace FarmersLeague.UI.Pages.Players
 {
     public class AddPlayerModel : PageModel
     {

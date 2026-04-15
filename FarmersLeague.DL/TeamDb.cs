@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
-using FarmersLeague.ML;
 using System.Collections.Generic;
-
+using FarmersLeague.ML;
 
 namespace FarmersLeague.DL
 {
@@ -9,10 +8,41 @@ namespace FarmersLeague.DL
     {
         private string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FarmersLeagueDB;Integrated Security=True;";
 
-        // method for getting all teams from the db
-        public List<Team> GetAllTeams()
-        {   
-            List<Team> teamList = new List<Team>(); //creating a list to hold the teams we get
+
+       
+        //method for creating a new teamm
+        public void CreateTeam(int leagueID, string teamName, decimal budget, int points, string tactics, bool isUserControlled)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                string query = "INSERT INTO Team (LeagueID, TeamName, Budget, Points, Tactics, IsUserControlled) " +
+                       "VALUES (@LeagueID, @TeamName, @Budget, @Points, @Tactics, @IsUserControlled)";
+
+                SqlCommand command = new SqlCommand(query, connection);
+
+                // 2. THE PARAMETERS: We just pass the exact lowercase variables from the top line directly in.
+                // No more 'newTeam.' because the box is already unpacked!
+                command.Parameters.AddWithValue("@LeagueID", leagueID);
+                command.Parameters.AddWithValue("@TeamName", teamName);
+                command.Parameters.AddWithValue("@Budget", budget);
+                command.Parameters.AddWithValue("@Points", points);
+                command.Parameters.AddWithValue("@Tactics", tactics);
+                command.Parameters.AddWithValue("@IsUserControlled", isUserControlled);
+
+                command.ExecuteNonQuery();
+
+
+
+            }
+        }
+
+
+        // method for getting all teams from the db for the admin
+        public List<AdminTeamDTO> GetAllTeamsForAdmin()
+        {
+            List<AdminTeamDTO> adminTeamList = new List<AdminTeamDTO>(); //creating a list to hold the teams we get
 
             using (SqlConnection connection = new SqlConnection(_connectionString))  //connecting to the database
             {
@@ -23,50 +53,27 @@ namespace FarmersLeague.DL
 
                 while (reader.Read())
                 {
-                    int teamID =  (int)reader["TeamID"];
-                    int leagueID = (int)reader["LeagueID"];
-                    string teamName = (string)reader["TeamName"];
-                    decimal budget = (decimal)reader["Budget"];
-                    int points = (int)reader["Points"];
-                    string tacticsString = (string)reader["Tactics"];
-                    bool isControlled = (bool)reader["IsUserControlled"];
+                    // Pack the big Admin object!
+                    AdminTeamDTO teamAdmin = new AdminTeamDTO();
 
-                    // pushing the data we got from the db into the team constructor to create a team object
-                    Team t = new Team(teamID, leagueID, teamName, budget, points, tacticsString, isControlled);
+                    // We pull out every single stat and convert them
+                    teamAdmin.TeamID = Convert.ToInt32(reader["TeamID"]);
+                    teamAdmin.LeagueID = Convert.ToInt32(reader["LeagueID"]);
+                    teamAdmin.TeamName = reader["TeamName"].ToString();
+                    teamAdmin.Budget = Convert.ToDouble(reader["Budget"]);
+                    teamAdmin.Points = Convert.ToInt32(reader["Points"]);
+                    teamAdmin.Tactics = reader["Tactics"].ToString();
+                    teamAdmin.IsUserControlled = Convert.ToBoolean(reader["IsUserControlled"]);
 
+                    // Add it to the truck
+                    adminTeamList.Add(teamAdmin);
                 }
-
             }
-            return teamList;
+
+            return adminTeamList;
         }
 
 
-        //method for creating a new teamm
-        public void CreateTeam(Team newTeam)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-
-                string query = @"INSERT INTO Team (LeagueID, TeamName, Budget, Points, Tactics, IsUserControlled)
-                VALUES (@LeagueID, @TeamName, @Budget, @Points, @Tactics, @IsUserControlled )";
-
-                SqlCommand command = new SqlCommand(query, connection);
-
-                command.Parameters.AddWithValue("@LeagueID", newTeam.LeagueID);
-                command.Parameters.AddWithValue("@TeamName", newTeam.TeamName);
-                command.Parameters.AddWithValue("@Budget", newTeam.Budget);
-                command.Parameters.AddWithValue("@Points", newTeam.Points);
-                command.Parameters.AddWithValue("@Tactics", newTeam.Tactics.ToString());  //converting the enum to a string to store in the db bc db expects a string
-                command.Parameters.AddWithValue("@IsUserControlled", newTeam.IsUserControlled);
-
-                command.ExecuteNonQuery();
-
-
-
-            }
-        }
-      
     }
 
     

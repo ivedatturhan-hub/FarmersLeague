@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FarmersLeague.ML;
-using FarmersLeague.BL;
 using System;
 
 
-namespace FarmersLeague.UI.Pages
+namespace FarmersLeague.UI.Pages.Teams
 {
     public class AddTeamModel : PageModel
     {

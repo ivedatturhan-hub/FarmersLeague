@@ -10,8 +10,4 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\FarmersLeague.ML\FarmersLeague.ML.csproj" />
-  </ItemGroup>
-
 </Project>
