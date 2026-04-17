@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FarmersLeague.ML;
 using static FarmersLeague.ML.Player;
+using FarmersLeague.ML.Services;
 
 namespace FarmersLeague.UI.Pages.Players
 {

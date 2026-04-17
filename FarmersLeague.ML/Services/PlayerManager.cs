@@ -1,7 +1,8 @@
-﻿using System;                    
+﻿using System;
 using FarmersLeague.DL;
+using FarmersLeague.DL.DTO;
 
-namespace FarmersLeague.ML
+namespace FarmersLeague.ML.Services
 {
     public class PlayerManager
     {
@@ -68,6 +69,14 @@ namespace FarmersLeague.ML
             // if the code faced no problem, adds the player
             _playerDb.AddPlayer(newPlayer.Name, newPlayer.Age, newPlayer.Position.ToString(), newPlayer.BaseAttack, newPlayer.BaseDefence, Convert.ToDecimal(newPlayer.MarketValue),
                 newPlayer.IsAvailable, newPlayer.Condition, newPlayer.Happiness, newPlayer.Composure, newPlayer.Aggression, newPlayer.SeasonGoals, newPlayer.SeasonAssists, newPlayer.YellowCards, newPlayer.RedCards);
+        }
+
+
+        // method to get all the players in the database for the admin page.
+
+        public List<AdminPlayerDTO> GetAllPlayersForAdmin()
+        {
+            return _playerDb.GetAllPlayersForAdmin();
         }
     }
 }

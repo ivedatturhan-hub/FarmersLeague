@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FarmersLeague.ML;
 using FarmersLeague.DL;
 
-namespace FarmersLeague.ML
+namespace FarmersLeague.ML.Services
 {
     public class TeamManager
     {

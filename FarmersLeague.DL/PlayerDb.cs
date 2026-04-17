@@ -24,7 +24,7 @@ namespace FarmersLeague.DL
                 SqlCommand command = new SqlCommand(query, connection);
 
                 // now i swap the placeholders with actual values from database.  
-                //Why do I need to use AddWithValue? I will ask this
+              
                 command.Parameters.AddWithValue("@Name", Name);
                 command.Parameters.AddWithValue("@Age", Age);
                 command.Parameters.AddWithValue("@Position", Position);
