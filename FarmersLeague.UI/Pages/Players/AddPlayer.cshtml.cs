@@ -37,7 +37,7 @@ namespace FarmersLeague.UI.Pages.Players
 
         public string Message { get; set; } = "";
 
-        public void OnPost()
+        public RedirectToPageResult OnPost()
         {
             // Creating the player using the user input.
             Player addedPlayer = new Player(InputName, InputAge, InputPosition, InputAttack, InputDefence, InputMarketValue, InputComposure, InputAggression);
@@ -54,6 +54,9 @@ namespace FarmersLeague.UI.Pages.Players
             {
                 Message = ex.Message;
             }
+
+            return RedirectToPage("/Players/AdminPlayers");
         }
+
     }
 }
