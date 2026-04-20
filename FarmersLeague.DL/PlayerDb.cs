@@ -24,15 +24,15 @@ namespace FarmersLeague.DL
                 SqlCommand command = new SqlCommand(query, connection);
 
                 // now i swap the placeholders with actual values from database.  
-              
+
                 command.Parameters.AddWithValue("@Name", Name);
                 command.Parameters.AddWithValue("@Age", Age);
                 command.Parameters.AddWithValue("@Position", Position);
                 command.Parameters.AddWithValue("@BaseAttack", BaseAttack);
                 command.Parameters.AddWithValue("@BaseDefence", BaseDefence);
-                command.Parameters.AddWithValue("@MarketValue", MarketValue);   
-                command.Parameters.AddWithValue("@IsAvailable", IsAvailable); 
-                command.Parameters.AddWithValue("@Condition", Condition); 
+                command.Parameters.AddWithValue("@MarketValue", MarketValue);
+                command.Parameters.AddWithValue("@IsAvailable", IsAvailable);
+                command.Parameters.AddWithValue("@Condition", Condition);
                 command.Parameters.AddWithValue("@Happiness", Happiness);
                 command.Parameters.AddWithValue("@Composure", Composure);
                 command.Parameters.AddWithValue("@Aggression", Aggression);
@@ -41,7 +41,7 @@ namespace FarmersLeague.DL
                 command.Parameters.AddWithValue("@YellowCards", YellowCards);
                 command.Parameters.AddWithValue("@RedCards", RedCards);
 
-          
+
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -64,9 +64,9 @@ namespace FarmersLeague.DL
                 {
                     AdminPlayerDTO playerAdmin = new AdminPlayerDTO();
 
-                   playerAdmin.PlayerID = Convert.ToInt32(reader["PlayerID"]);
-                   playerAdmin.Name = reader["Name"].ToString();
-                     playerAdmin.Age = Convert.ToInt32(reader["Age"]);
+                    playerAdmin.PlayerID = Convert.ToInt32(reader["PlayerID"]);
+                    playerAdmin.Name = reader["Name"].ToString();
+                    playerAdmin.Age = Convert.ToInt32(reader["Age"]);
                     playerAdmin.Position = reader["Position"].ToString();
                     playerAdmin.BaseAttack = Convert.ToInt32(reader["BaseAttack"]);
                     playerAdmin.BaseDefence = Convert.ToInt32(reader["BaseDefence"]);
@@ -89,5 +89,20 @@ namespace FarmersLeague.DL
             return adminPlayerList; // return the list of players to the admin.
         }
 
+        // Method for deleting a player from the db
+
+        public void DeletePlayer(int playerID)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "DELETE FROM Player WHERE PlayerID = @PlayerID";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@PlayerID", playerID);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+
+        }
     }
 }
+    

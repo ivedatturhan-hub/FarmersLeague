@@ -6,7 +6,7 @@ namespace FarmersLeague.ML.Services
 {
     public class PlayerManager
     {
-        private PlayerDb _playerDb = new PlayerDb();
+        private PlayerDb playerDb = new PlayerDb();
 
         public void CreateNewPlayer(Player newPlayer) 
         {
@@ -67,7 +67,7 @@ namespace FarmersLeague.ML.Services
 
 
             // if the code faced no problem, adds the player
-            _playerDb.AddPlayer(newPlayer.Name, newPlayer.Age, newPlayer.Position.ToString(), newPlayer.BaseAttack, newPlayer.BaseDefence, Convert.ToDecimal(newPlayer.MarketValue),
+            playerDb.AddPlayer(newPlayer.Name, newPlayer.Age, newPlayer.Position.ToString(), newPlayer.BaseAttack, newPlayer.BaseDefence, Convert.ToDecimal(newPlayer.MarketValue),
                 newPlayer.IsAvailable, newPlayer.Condition, newPlayer.Happiness, newPlayer.Composure, newPlayer.Aggression, newPlayer.SeasonGoals, newPlayer.SeasonAssists, newPlayer.YellowCards, newPlayer.RedCards);
         }
 
@@ -76,7 +76,15 @@ namespace FarmersLeague.ML.Services
 
         public List<AdminPlayerDTO> GetAllPlayersForAdmin()
         {
-            return _playerDb.GetAllPlayersForAdmin();
+            return playerDb.GetAllPlayersForAdmin();
+        }
+
+
+        // method for deleting a player from the database.
+
+        public void DeletePlayer(int playerID)
+        {
+            playerDb.DeletePlayer(playerID);
         }
     }
 }
