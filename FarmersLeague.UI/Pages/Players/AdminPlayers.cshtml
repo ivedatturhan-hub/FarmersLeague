@@ -19,7 +19,11 @@
             <th>Age</th>
             <th>Position</th>
             <th>Market Value</th>
-            <th>Available?</th>
+            <th>Attack</th>
+            <th>Defence</th>
+            <th>Actions</th>
+
+
         </tr>
     </thead>
     <tbody>
@@ -31,7 +35,9 @@
                 <td>@player.Age</td>
                 <td>@player.Position</td>
                 <td> € @player.MarketValue m</td>
-                <td>@player.IsAvailable</td>
+                <td>@player.BaseAttack</td>
+                <td>@player.BaseDefence</td>
+
                 <td>
                     <form method="post" asp-page-handler="Delete" asp-route-id="@player.PlayerID">
                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
