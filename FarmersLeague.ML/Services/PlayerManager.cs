@@ -8,7 +8,7 @@ namespace FarmersLeague.ML.Services
     {
         private PlayerDb playerDb = new PlayerDb();
 
-        public void CreateNewPlayer(Player newPlayer) 
+        public void CreateNewPlayer(Player newPlayer)
         {
             //my rules for creating a new player
 
@@ -45,7 +45,7 @@ namespace FarmersLeague.ML.Services
             if (newPlayer.Happiness < 0 || newPlayer.Happiness > 100)
             {
                 throw new Exception("Error: Happiness must be between 0 and 100.");
-            }   
+            }
 
 
             if (newPlayer.Composure < 0 || newPlayer.Composure > 100)
@@ -84,7 +84,22 @@ namespace FarmersLeague.ML.Services
 
         public void DeletePlayer(int playerID)
         {
+            // add rules here later
+
             playerDb.DeletePlayer(playerID);
+        }
+
+        // method for updating a player
+        public void UpdatePlayer(AdminPlayerDTO updatedPlayer)
+        {
+            playerDb.UpdatePlayer(updatedPlayer);
+
+        }
+
+        // method for getting a player by id
+        public AdminPlayerDTO GetPlayerById(int playerId)
+        {           
+            return playerDb.GetPlayerByID(playerId);
         }
     }
 }

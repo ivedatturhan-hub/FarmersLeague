@@ -1,7 +1,8 @@
-﻿using Microsoft.Data.SqlClient; 
+﻿using FarmersLeague.DL.DTO;
 using FarmersLeague.ML;
+using Microsoft.Data.SqlClient; 
 using System.Collections.Generic;
-using FarmersLeague.DL.DTO;
+using System.Numerics;
 
 namespace FarmersLeague.DL
 {
@@ -105,6 +106,66 @@ namespace FarmersLeague.DL
         }
 
         // method for editing the player data
+
+        public void UpdatePlayer(AdminPlayerDTO updatedPlayer)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                // the sql command to update the spesific player data for a spesific id
+                string query = @"UPDATE Player
+                                    SET Name = @Name, Age = @Age, Position = @Position, MarketValue = @MarketValue, BaseAttack = @BaseAttack, BaseDefence = @BaseDefence
+                                    Composure = @Composure, Aggression = @Aggression
+                                 WHERE PlayerID = @PlayerID";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Name", updatedPlayer.Name);
+                command.Parameters.AddWithValue("@Age", updatedPlayer.Age);
+                command.Parameters.AddWithValue("@Position", updatedPlayer.Position);
+                command.Parameters.AddWithValue("@MarketValue", updatedPlayer.MarketValue);
+                command.Parameters.AddWithValue("@BaseAttack", updatedPlayer.BaseAttack);
+                command.Parameters.AddWithValue("@BaseDefence", updatedPlayer.BaseDefence);
+                command.Parameters.AddWithValue("@Composure", updatedPlayer.Composure);
+                command.Parameters.AddWithValue("@Aggression", updatedPlayer.Aggression);
+                command.Parameters.AddWithValue("@PlayerID", updatedPlayer.PlayerID); // this is to find the player, not to change the id
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        // getting player data when editing a player, so we can show the current data in the edit page
+        public AdminPlayerDTO GetPlayerByID(int playerID)
+        {
+            AdminPlayerDTO editedPlayer = new AdminPlayerDTO();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                // getting the row with the spesific id
+                string query = "SELECT * FROM Player WHERE PlayerID = @PlayerID";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@PlayerID", playerID);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    // if the db finds the player, it fills the data to the form
+                    if (reader.Read())
+                    {
+                        editedPlayer.PlayerID = Convert.ToInt32(reader["PlayerID"]);
+                        editedPlayer.Name = reader["Name"].ToString();
+                        editedPlayer.Age = Convert.ToInt32(reader["Age"]);
+                        editedPlayer.Position = reader["Position"].ToString();
+                        editedPlayer.MarketValue = (double)Convert.ToDecimal(reader["MarketValue"]);
+                        editedPlayer.BaseAttack = Convert.ToInt32(reader["BaseAttack"]);
+                        editedPlayer.BaseDefence = Convert.ToInt32(reader["BaseDefence"]);
+                    }
+                }
+
+            }
+            return editedPlayer; // return the player data to the edit page.
+        }
     }
 }
     
