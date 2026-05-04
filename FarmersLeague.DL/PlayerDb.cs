@@ -134,7 +134,9 @@ namespace FarmersLeague.DL
             }
         }
 
-        // getting player data when editing a player, so we can show the current data in the edit page
+        // method for getting player data when editing a player, so we can show the current data in the edit page
+
+
         public AdminPlayerDTO GetPlayerByID(int playerID)
         {
             AdminPlayerDTO editedPlayer = new AdminPlayerDTO();
@@ -166,6 +168,47 @@ namespace FarmersLeague.DL
             }
             return editedPlayer; // return the player data to the edit page.
         }
+
+
+
+        // method for getting all the players by their team id. This will allow us to show the players in a team
+
+
+        public List<AdminPlayerDTO> GetPlayersByTeamId(int teamId)
+        {
+            List<AdminPlayerDTO> teamSquad = new List<AdminPlayerDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                //  We only want players with the matching TeamID.
+                string query = "SELECT * FROM Player WHERE TeamID = @TeamID";
+                SqlCommand command = new SqlCommand(query, connection);
+
+                command.Parameters.AddWithValue("@TeamID", teamId);
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    AdminPlayerDTO player = new AdminPlayerDTO();
+
+                    // Assuming these are your column names based on your Player page
+                    player.PlayerID = Convert.ToInt32(reader["PlayerID"]);
+                    player.Name = reader["Name"].ToString();
+                    player.Age = Convert.ToInt32(reader["Age"]);
+                    player.Position = reader["Position"].ToString();
+                    player.MarketValue = (double)Convert.ToDecimal(reader["MarketValue"]);
+                    player.BaseAttack = Convert.ToInt32(reader["BaseAttack"]);
+                    player.BaseDefence = Convert.ToInt32(reader["BaseDefence"]);
+
+                    teamSquad.Add(player);
+                }
+            }
+
+            return teamSquad;
+        }
     }
+
 }
     

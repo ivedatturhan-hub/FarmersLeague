@@ -37,7 +37,9 @@
                     <td>@(team.IsUserControlled ? "Yes" : "No")</td>
 
                     <td>
-                        <a asp-page="/EditTeam" asp-route-id="@team.TeamID" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-page="/Teams/AdminTeamPlayers" asp-route-id="@team.TeamID" class="btn btn-info btn-sm text-white">View Players</a> 
+
+                        <a asp-page="/Teams/AdminEditTeams" asp-route-id="@team.TeamID" class="btn btn-warning btn-sm">Edit</a>
 
                         <form method="post" asp-page-handler="Delete" class="d-inline">
                             <input type="hidden" name="id" value="@team.TeamID" />
