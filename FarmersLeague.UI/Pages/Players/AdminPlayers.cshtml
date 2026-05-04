@@ -27,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var player in Model.DisplayPlayers)
+        @foreach (var player in Model.PlayerList)
         {
             <tr>
                 <td>@player.PlayerID</td>
@@ -38,12 +38,16 @@
                 <td>@player.BaseAttack</td>
                 <td>@player.BaseDefence</td>
 
-                <td>
-                    <a asp-page="/Players/EditAdminPlayers" asp-route-id="@player.PlayerID" class="btn btn-warning btn-sm">Edit</a>
 
-                    <form method="post" asp-page-handler="Delete" asp-route-id="@player.PlayerID">
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
+                <!-- edit button -->
+                <td>
+                    <!-- because i said asp-route-id, that button holds players id in the name of "id". so thats why i used PlayerToEdit = manager.GetPlayerById(id); in editplayer.cs  -->
+                    <a asp-page="/Players/EditAdminPlayers" asp-route-id="@player.PlayerID" class="btn btn-warning btn-sm">Edit</a> // 
+
+                     <form method="post" asp-page-handler="Delete" class="d-inline">
+                            <input type="hidden" name="id" value="@player.PlayerID" />
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete @player.Name?');">Delete</button>
+                     </form>
                 </td>
             </tr>
         }
