@@ -8,6 +8,8 @@ namespace FarmersLeague.ML.Services
     {
         private PlayerDb playerDb = new PlayerDb();
 
+
+        // method for creating a new player
         public void CreateNewPlayer(Player newPlayer)
         {
             //my rules for creating a new player
@@ -84,7 +86,7 @@ namespace FarmersLeague.ML.Services
 
         public void DeletePlayer(int playerID)
         {
-            // add rules here later
+            // add rules here later 
 
             playerDb.DeletePlayer(playerID);
         }
@@ -92,6 +94,7 @@ namespace FarmersLeague.ML.Services
         // method for updating a player
         public void UpdatePlayer(AdminPlayerDTO updatedPlayer)
         {
+            // add the same rules as in create new player here later
             playerDb.UpdatePlayer(updatedPlayer);
 
         }

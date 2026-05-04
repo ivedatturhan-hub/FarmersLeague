@@ -12,3 +12,4 @@
         public bool IsUserControlled { get; set; }
     }
 }
+

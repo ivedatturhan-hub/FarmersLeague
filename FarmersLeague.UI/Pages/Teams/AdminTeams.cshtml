@@ -1,0 +1,51 @@
+﻿@page
+@model FarmersLeague.UI.Pages.AdminTeamsModel
+@{
+    ViewData["Title"] = "Admin Teams";
+}
+
+<div class="container mt-4">
+    <h2>Team Management Dashboard</h2>
+
+    <div class="mb-3 mt-4">
+        <!-- Using a standard Bootstrap primary button -->
+        <a asp-page="/Teams/AdminCreateTeam" class="btn btn-primary">+ Add New Team</a>
+    </div>
+
+    <table class="table table-bordered table-hover mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Team Name</th>
+                <th>Budget (M)</th>
+                <th>Points</th>
+                <th>Tactics</th>
+                <th>User Controlled?</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var team in Model.TeamList)
+            {
+                <tr>
+                    <td>@team.TeamID</td>
+                    <td>@team.TeamName</td>
+                    <td>£@team.Budget million</td>
+                    <td>@team.Points</td>
+                    <td>@team.Tactics</td>
+
+                    <td>@(team.IsUserControlled ? "Yes" : "No")</td>
+
+                    <td>
+                        <a asp-page="/EditTeam" asp-route-id="@team.TeamID" class="btn btn-warning btn-sm">Edit</a>
+
+                        <form method="post" asp-page-handler="Delete" class="d-inline">
+                            <input type="hidden" name="id" value="@team.TeamID" />
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete @team.TeamName?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
