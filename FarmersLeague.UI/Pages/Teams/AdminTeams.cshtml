@@ -8,7 +8,6 @@
     <h2>Team Management Dashboard</h2>
 
     <div class="mb-3 mt-4">
-        <!-- Using a standard Bootstrap primary button -->
         <a asp-page="/Teams/AdminCreateTeam" class="btn btn-primary">+ Add New Team</a>
     </div>
 
@@ -37,7 +36,7 @@
                     <td>@(team.IsUserControlled ? "Yes" : "No")</td>
 
                     <td>
-                        <a asp-page="/Teams/AdminTeamPlayers" asp-route-id="@team.TeamID" class="btn btn-info btn-sm text-white">View Players</a> 
+                        <a asp-page="/Teams/TeamPlayers" asp-route-id="@team.TeamID" class="btn btn-info btn-sm text-white">View Players</a> 
 
                         <a asp-page="/Teams/AdminEditTeams" asp-route-id="@team.TeamID" class="btn btn-warning btn-sm">Edit</a>
 

@@ -1,0 +1,58 @@
+﻿@page "{id:int}"
+@model FarmersLeague.UI.Pages.TeamPlayersModel
+@{
+    ViewData["Title"] = "Team Roster";
+}
+
+<div class="container mt-4">
+    <h2>Squad List</h2>
+
+    <div class="mb-3 mt-4">
+        <!-- Button for assigning player to a team -->
+        <a asp-page="/AssignPlayer" asp-route-teamId="@Model.CurrentTeamId" class="btn btn-primary">+ Assign Player to Team</a>
+
+        <!-- A handy button to go back to the main teams list -->
+        <a asp-page="/Teams/AdminTeams" class="btn btn-secondary">Back to Teams</a>
+    </div>
+
+    <table class="table table-bordered table-hover mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Position</th>
+                <th>Attack</th>
+                <th>Defense</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- checking if the squad is empty -->
+            @if (Model.Squad.Count == 0)
+            {
+                <tr>
+                    <td colspan="7" class="text-center text-muted">No players are currently assigned to this team.</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var player in Model.Squad)
+                {
+                    <tr>
+                        <td>@player.PlayerID</td>
+                        <td>@player.Name</td>
+                        <td>@player.Age</td>
+                        <td>@player.Position</td>
+                        <td>@player.BaseAttack</td>
+                        <td>@player.BaseDefence</td>
+                        <td>
+                            <!-- We will wire this up later to just set the TeamID to NULL -->
+                            <button class="btn btn-danger btn-sm">Remove from Team</button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
