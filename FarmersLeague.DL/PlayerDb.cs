@@ -1,4 +1,4 @@
-﻿using FarmersLeague.DL.DTO;
+﻿    using FarmersLeague.DL.DTO;
 using FarmersLeague.ML;
 using Microsoft.Data.SqlClient; 
 using System.Collections.Generic;
@@ -48,6 +48,8 @@ namespace FarmersLeague.DL
             }
         }
 
+
+
         // method for getting all the players from the database for the admin.
 
         public List<AdminPlayerDTO> GetAllPlayersForAdmin()
@@ -90,6 +92,9 @@ namespace FarmersLeague.DL
             return adminPlayerList; // return the list of players to the admin.
         }
 
+
+
+
         // Method for deleting a player from the db
 
         public void DeletePlayer(int playerID)
@@ -104,6 +109,9 @@ namespace FarmersLeague.DL
             }
 
         }
+
+
+
 
         // method for editing the player data
 
@@ -134,8 +142,10 @@ namespace FarmersLeague.DL
             }
         }
 
-        // method for getting player data when editing a player, so we can show the current data in the edit page
 
+
+
+        // method for getting player data when editing a player, so we can show the current data in the edit page
 
         public AdminPlayerDTO GetPlayerByID(int playerID)
         {
@@ -171,8 +181,8 @@ namespace FarmersLeague.DL
 
 
 
-        // method for getting all the players by their team id. This will allow us to show the players in a team
 
+        // method for getting all the players by their team id. This will allow us to show the players in a team
 
         public List<AdminPlayerDTO> GetPlayersByTeamID(int teamId)
         {
@@ -208,6 +218,28 @@ namespace FarmersLeague.DL
 
             return teamSquad;
         }
+
+
+        // method for changing player's team
+        public void ChangePlayerTeam(int playerID, int teamID)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                // updating only the teamID column for this spesific player with the matching playerID.
+                string query = "UPDATE Player SET TeamID = @TeamID WHERE PlayerID = @PlayerID";
+
+                SqlCommand command = new SqlCommand(query, connection);
+
+                // Securely attach our parameters
+                command.Parameters.AddWithValue("@TeamID", teamID);
+                command.Parameters.AddWithValue("@PlayerID", playerID);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+            
+
     }
 
 }

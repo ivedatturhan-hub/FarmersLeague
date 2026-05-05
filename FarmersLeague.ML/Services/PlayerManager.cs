@@ -112,5 +112,12 @@ namespace FarmersLeague.ML.Services
             // add rules here later
             return playerDb.GetPlayersByTeamID(teamId);
         }
+
+        //method for changing a player's team
+        public void UpdatePlayerTeam(int playerID, int teamID)
+        {
+            // add rules here later
+            playerDb.ChangePlayerTeam(playerID, teamID);
+        }
     }
 }
