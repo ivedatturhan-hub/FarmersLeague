@@ -174,7 +174,7 @@ namespace FarmersLeague.DL
         // method for getting all the players by their team id. This will allow us to show the players in a team
 
 
-        public List<AdminPlayerDTO> GetPlayersByTeamId(int teamId)
+        public List<AdminPlayerDTO> GetPlayersByTeamID(int teamId)
         {
             List<AdminPlayerDTO> teamSquad = new List<AdminPlayerDTO>();
 

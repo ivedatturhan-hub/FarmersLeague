@@ -104,5 +104,13 @@ namespace FarmersLeague.ML.Services
         {           
             return playerDb.GetPlayerByID(playerId);
         }
+
+        // method for getting players in a team by team id
+        public List<AdminPlayerDTO> GetPlayersByTeamID(int teamId)
+        {
+
+            // add rules here later
+            return playerDb.GetPlayersByTeamID(teamId);
+        }
     }
 }
