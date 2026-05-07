@@ -40,6 +40,20 @@ namespace FarmersLeague.ML.Services
             // add rules here later
             teamDb.DeleteTeam(teamID);
         }
+
+        // method for updating a team
+        public void UpdateTheTeam(AdminTeamDTO updatedTeam)
+        {
+            // add the same rules as in create new team here later
+            teamDb.UpdateTeam(updatedTeam);
+        }
+
+
+        // method for getting a team by id
+        public AdminTeamDTO GetTeamByID(int teamID)
+        {
+            return teamDb.GetTeamByID(teamID);
+        }
     }
 }
 

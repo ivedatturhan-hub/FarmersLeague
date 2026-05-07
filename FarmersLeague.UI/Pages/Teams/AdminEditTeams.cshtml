@@ -1,4 +1,33 @@
 ﻿@page
 @model FarmersLeague.UI.Pages.Teams.AdminEditTeamsModel
 @{
+	ViewData["Title"] = "Admin Edit Teams";
 }
+
+<h1>Admin Dashboard: Edit Teams</h1>
+<hr />
+
+<div class="row">
+	<div class="col-md-4">
+		<!-- The form that sends data back to OnPost() -->
+		<form method="post">
+			<!-- THE INVISIBLE BARCODE: Crucial so the database knows WHO to update -->
+			<input type="hidden" asp-for="TeamToEdit.TeamID" />
+			<div class="mb-3">
+				<label>Name</label>
+				<input type="text" asp-for="TeamToEdit.TeamName" class="form-control" />
+			</div>
+			<div class="mb-3">
+				<label>Budget</label>
+				<input type="number" step="0.1" asp-for="TeamToEdit.Budget" class="form-control" />
+			</div>
+			<div class="mb-3">
+				<label>Points</label>
+				<input type="number" asp-for="TeamToEdit.Points" class="form-control" />
+			</div>
+			<!-- submit button -->
+			<button type="submit" class="btn btn-success">Save Changes</button>
+			<!-- Cancel button redirects the user to previous page -->
+			<a asp-page="/Teams/AdminTeams" class="btn btn-secondary">Cancel</a>
+		</form>
+	</div>
