@@ -25,7 +25,7 @@ namespace FarmersLeague.UI.Pages
             PlayerManager manager = new PlayerManager();
 
             // executes the update method in the manager.
-            manager.UpdatePlayer(PlayerToEdit);
+            manager.UpdateThePlayer(PlayerToEdit);
 
             return RedirectToPage("/Players/AdminPlayers");
         }

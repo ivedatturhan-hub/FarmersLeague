@@ -1,0 +1,28 @@
+﻿@page
+@model FarmersLeague.UI.Pages.Teams.CreateAdminTeamModel
+@{
+	ViewData["Title"] = "Add Team to the League";
+}
+
+<div class="container mt-4">
+	<h1>Add Team to the League</h1>
+	@if (!string.IsNullOrEmpty(Model.Message))
+	{
+		<div class="alert @(Model.Message.Contains("Error") ? "alert-danger" : "alert-success")">
+			@Model.Message
+		</div>
+	}
+	<form method="post">
+		<div class="form-group
+			mb-3">
+			<label>Team Name</label>
+			<input asp-for="InputTeamName" class="form-control" placeholder="e.g. Eindhoven FC" required />
+		</div>
+
+		<button type="submit" class="btn btn-primary">Confirm</button>
+		</form>
+
+		<div class="mb-3 mt-4">
+		<a asp-page="/Teams/AdminTeams" class="btn btn-secondary">Back to Teams</a>
+		</div>
+

@@ -92,7 +92,7 @@ namespace FarmersLeague.ML.Services
         }
 
         // method for updating a player
-        public void UpdatePlayer(AdminPlayerDTO updatedPlayer)
+        public void UpdateThePlayer(AdminPlayerDTO updatedPlayer)
         {
             // add the same rules as in create new player here later
             playerDb.UpdatePlayer(updatedPlayer);

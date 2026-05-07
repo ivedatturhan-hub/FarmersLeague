@@ -16,7 +16,7 @@ namespace FarmersLeague.UI.Pages.Teams
         public string InputTeamName { get; set; }
         public string Message { get; set; } = "";
 
-        public void OnPost()  //learn what this does
+        public void OnPost()
         {
             Team addedTeam = new Team(1, InputTeamName, 100, 0, Team.TeamTactics.Balanced.ToString(), true);
             TeamManager manager = new TeamManager();

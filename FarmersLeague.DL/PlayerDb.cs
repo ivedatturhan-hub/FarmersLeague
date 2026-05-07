@@ -123,7 +123,7 @@ namespace FarmersLeague.DL
 
                 // the sql command to update the spesific player data for a spesific id
                 string query = @"UPDATE Player
-                                    SET Name = @Name, Age = @Age, Position = @Position, MarketValue = @MarketValue, BaseAttack = @BaseAttack, BaseDefence = @BaseDefence
+                                    SET Name = @Name, Age = @Age, Position = @Position, MarketValue = @MarketValue, BaseAttack = @BaseAttack, BaseDefence = @BaseDefence,
                                     Composure = @Composure, Aggression = @Aggression
                                  WHERE PlayerID = @PlayerID";
 

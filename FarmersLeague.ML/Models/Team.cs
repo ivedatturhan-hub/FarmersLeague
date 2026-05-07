@@ -36,7 +36,6 @@ namespace FarmersLeague.ML
                 Points = points;
                 Tactics = Enum.Parse<TeamTactics>(tacticsString);
             IsUserControlled = isUserControlled;
-                TeamName = teamName;
 
         }
 
