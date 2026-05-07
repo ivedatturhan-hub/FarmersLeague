@@ -13,7 +13,7 @@ namespace FarmersLeague.UI.Pages.Teams
         public string InputTeamName { get; set; }
         public string Message { get; set; } = "";
 
-        public void OnPost()
+        public RedirectToPageResult OnPost()
         {
             Team newTeam = new Team(1, InputTeamName, 100, 0, Team.TeamTactics.Balanced.ToString(), false);
             TeamManager manager = new TeamManager();
@@ -27,6 +27,7 @@ namespace FarmersLeague.UI.Pages.Teams
             {
                 Message = $"Error: {ex.Message}";
             }
+            return RedirectToPage("/Teams/AdminTeams");
         }
     }
 }

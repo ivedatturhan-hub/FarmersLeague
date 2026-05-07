@@ -74,6 +74,21 @@ namespace FarmersLeague.DL
         }
 
 
+
+
+        // method for deleting a team from the db for the admin
+
+        public void DeleteTeam(int teamID)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "DELETE FROM Team WHERE TeamID = @TeamID";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@TeamID", teamID);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
     }
 
     

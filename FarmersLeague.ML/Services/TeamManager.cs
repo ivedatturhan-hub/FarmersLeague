@@ -33,6 +33,13 @@ namespace FarmersLeague.ML.Services
 
         }
 
+
+        // method for deleting teams from the db
+        public void DeleteTeam(int teamID)
+        {
+            // add rules here later
+            teamDb.DeleteTeam(teamID);
+        }
     }
 }
 
