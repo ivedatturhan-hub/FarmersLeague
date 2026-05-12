@@ -14,7 +14,7 @@
 
             @foreach (var player in Model.PlayersWithNoTeam)
             {
-                <option value="@player.PlayerID">@player.Name</option>
+                <option value="@player.PlayerID">@player.Name - @player.Position - (€@player.MarketValue m)</option>
             }
         </select>
     </div>
