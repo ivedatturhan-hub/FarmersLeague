@@ -1,0 +1,26 @@
+﻿@page
+@model AssignPlayersModel
+
+<h2>Assign a player to Team</h2>
+
+<form method="post">
+
+    <input type="hidden" asp-for="TargetTeamID" />
+
+    <div>
+        <label>Select Free Agent:</label>
+        <select asp-for="SelectedPlayerID" required>
+            <option value="">-- Choose a Player --</option>
+
+            @foreach (var player in Model.PlayersWithNoTeam)
+            {
+                <option value="@player.PlayerID">@player.Name</option>
+            }
+        </select>
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Complete Transfer</button>
+
+</form>

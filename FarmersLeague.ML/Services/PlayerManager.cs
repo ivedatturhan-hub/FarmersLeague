@@ -81,6 +81,12 @@ namespace FarmersLeague.ML.Services
             return playerDb.GetAllPlayersForAdmin();
         }
 
+        // method for getting all available players (for the transfer market page)
+        public List<AdminPlayerDTO> GetPlayersWithNoTeam()
+        {
+            return playerDb.GetPlayersWithNoTeam();
+        }
+
 
         // method for deleting a player from the database.
 
@@ -116,8 +122,11 @@ namespace FarmersLeague.ML.Services
         //method for changing a player's team
         public void UpdatePlayerTeam(int playerID, int teamID)
         {
-            // add rules here later
+            // add rules here later (does adding a player exceed the team limit?)
             playerDb.ChangePlayerTeam(playerID, teamID);
         }
+
+
+
     }
 }

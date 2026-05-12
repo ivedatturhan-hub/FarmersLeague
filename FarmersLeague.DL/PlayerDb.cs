@@ -94,6 +94,39 @@ namespace FarmersLeague.DL
 
 
 
+        // method for getting all the players with no team, this will be used in the assign players page to show available players
+        public List<AdminPlayerDTO> GetPlayersWithNoTeam()
+        {
+            List<AdminPlayerDTO> playersWithNoTeam = new List<AdminPlayerDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                // getting the players with NO team.
+                string query = "SELECT * FROM Player WHERE TeamID IS NULL";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AdminPlayerDTO freePlayer = new AdminPlayerDTO();
+
+                        freePlayer.PlayerID = Convert.ToInt32(reader["PlayerID"]);
+                        freePlayer.Name = reader["Name"].ToString();
+                        freePlayer.MarketValue = (double)Convert.ToDecimal(reader["MarketValue"]);
+                        freePlayer.Position = reader["Position"].ToString();
+
+                        playersWithNoTeam.Add(freePlayer);
+
+                    }
+                }
+                    
+            }
+            return playersWithNoTeam;
+        }
+
 
         // Method for deleting a player from the db
 
@@ -203,7 +236,6 @@ namespace FarmersLeague.DL
                 {
                     AdminPlayerDTO player = new AdminPlayerDTO();
 
-                    // Assuming these are your column names based on your Player page
                     player.PlayerID = Convert.ToInt32(reader["PlayerID"]);
                     player.Name = reader["Name"].ToString();
                     player.Age = Convert.ToInt32(reader["Age"]);
