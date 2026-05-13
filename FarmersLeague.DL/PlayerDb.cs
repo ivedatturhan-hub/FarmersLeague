@@ -270,6 +270,20 @@ namespace FarmersLeague.DL
                 command.ExecuteNonQuery();
             }
         }
+
+        // method for removing a player from a team
+        public void RemovePlayerFromTeam(int playerID)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "UPDATE Player SET TeamID = NULL WHERE PlayerID = @PlayerID";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@PlayerID", playerID);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
             
 
     }

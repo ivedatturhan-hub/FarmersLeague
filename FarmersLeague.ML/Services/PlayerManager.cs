@@ -107,7 +107,7 @@ namespace FarmersLeague.ML.Services
 
         // method for getting a player by id
         public AdminPlayerDTO GetPlayerById(int playerId)
-        {           
+        {
             return playerDb.GetPlayerByID(playerId);
         }
 
@@ -127,6 +127,12 @@ namespace FarmersLeague.ML.Services
         }
 
 
+        // method for removing a player from a team
+        public void RemovePlayerFromTeam(int playerID)
+        {
+            // add rules here later
+            playerDb.RemovePlayerFromTeam(playerID);
 
+        }
     }
 }

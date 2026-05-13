@@ -46,10 +46,13 @@
                         <td>@player.Position</td>
                         <td>@player.BaseAttack</td>
                         <td>@player.BaseDefence</td>
+
                         <td>
-                            <!-- We will wire this up later to just set the TeamID to NULL -->
-                            <button class="btn btn-danger btn-sm">Remove from Team</button>
-                        </td>
+                        <form method="post" asp-page-handler="Delete" class="d-inline">
+                            <input type="hidden" name="id" value="@player.PlayerID" />
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to remove @player.Name from the team?');">Remove</button>
+                        </form>
+						</td>
                     </tr>
                 }
             }
