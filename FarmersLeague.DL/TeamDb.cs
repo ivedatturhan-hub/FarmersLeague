@@ -141,5 +141,22 @@ namespace FarmersLeague.DL
 
 
         }
+
+        //update the team budget after a transfer
+        public void UpdateTeamBudget(int teamID, double newBudget)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                // Update just the budget column for the specific team
+                string query = "UPDATE Team SET Budget = @NewBudget WHERE TeamID = @TeamID";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@NewBudget", newBudget);
+                command.Parameters.AddWithValue("@TeamID", teamID);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }

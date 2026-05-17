@@ -7,6 +7,7 @@ namespace FarmersLeague.ML.Services
     public class PlayerManager
     {
         private PlayerDb playerDb = new PlayerDb();
+        private TeamDb teamDb = new TeamDb();
 
 
         // method for creating a new player
@@ -122,7 +123,20 @@ namespace FarmersLeague.ML.Services
         //method for changing a player's team
         public void UpdatePlayerTeam(int playerID, int teamID)
         {
-            // add rules here later (does adding a player exceed the team limit?)
+            //update the remaining team budget after a transfer
+            var player = playerDb.GetPlayerByID(playerID);
+            var team = teamDb.GetTeamByID(teamID);
+
+            double remainingBudget = team.Budget - player.MarketValue;
+
+            if (remainingBudget < 0)
+            {
+                // Throwing an exception completely cancels the transaction.
+                throw new Exception("Transfer failed: The team does not have enough budget for this player.");
+            }
+
+            teamDb.UpdateTeamBudget(teamID, remainingBudget);
+
             playerDb.ChangePlayerTeam(playerID, teamID);
         }
 
@@ -130,6 +144,7 @@ namespace FarmersLeague.ML.Services
         // method for removing a player from a team
         public void RemovePlayerFromTeam(int playerID)
         {
+
             // add rules here later
             playerDb.RemovePlayerFromTeam(playerID);
 

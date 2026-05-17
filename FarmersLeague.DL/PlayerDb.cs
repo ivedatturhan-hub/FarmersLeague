@@ -269,6 +269,7 @@ namespace FarmersLeague.DL
                 connection.Open();
                 command.ExecuteNonQuery();
             }
+
         }
 
         // method for removing a player from a team
