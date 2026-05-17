@@ -1,4 +1,4 @@
-﻿namespace FarmersLeague.ML
+﻿    namespace FarmersLeague.ML.DTOs
 {
     // The Admin Box! It holds all the data.
     public class AdminTeamDTO

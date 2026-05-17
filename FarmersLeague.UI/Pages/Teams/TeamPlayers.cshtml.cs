@@ -1,9 +1,10 @@
-using FarmersLeague.DL;
-using FarmersLeague.DL.DTO;
+using FarmersLeague.ML.DTOs;
+using FarmersLeague.ML;
 using FarmersLeague.ML.Services;
+using FarmersLeague.DL;
+using FarmersLeague.ML.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Collections.Generic;
 
 namespace FarmersLeague.UI.Pages
 {
@@ -14,6 +15,19 @@ namespace FarmersLeague.UI.Pages
 
         // keeping track of the team id so we know which team we're looking at in the HTML page
         public int CurrentTeamId { get; set; }
+
+        //creating an empty box for the manager at the top so whole page can use it.
+        PlayerManager playerManager;
+
+        public TeamPlayersModel()
+        {
+            //building the spesific databases i want to use
+            IPlayerDb playerDb = new PlayerDb();
+            ITeamDb teamDb = new TeamDb();
+
+            // putting the databases into the manager constructor.
+            playerManager = new PlayerManager(playerDb, teamDb);
+        }
 
 
 
@@ -28,16 +42,14 @@ namespace FarmersLeague.UI.Pages
             CurrentTeamId = id;
 
             // executing the method that gets the players by the team id and assigning it to the squad list
-            PlayerManager manager = new PlayerManager();
-            Squad = manager.GetPlayersByTeamID(id);
+            Squad = playerManager.GetPlayersByTeamID(id);
         }
 
 
         public IActionResult OnPostDelete(int id)
         {
             // 1. Call the manager to delete the player
-            PlayerManager manager = new PlayerManager();
-            manager.RemovePlayerFromTeam(id);
+            playerManager.RemovePlayerFromTeam(id);
             return RedirectToPage("/Teams/TeamPlayers", new { id = CurrentTeamId });
         }
     }

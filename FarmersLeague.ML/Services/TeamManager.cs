@@ -1,15 +1,26 @@
-﻿using System;
+﻿using FarmersLeague.ML.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FarmersLeague.DL;
+using FarmersLeague.ML.DTOs;
+
 
 namespace FarmersLeague.ML.Services
 {
     public class TeamManager
     {
-        private TeamDb teamDb = new TeamDb();
+        // creating private variables, but using interface, not the real database
+        private IPlayerDb playerDb;
+        private ITeamDb teamDb;
+
+        // just like the player class, i have a constructor for the team manager for creating a manager. I need to choose which db i use.
+        public TeamManager(IPlayerDb PlayerDb, ITeamDb TeamDb)
+        {
+            playerDb = PlayerDb;
+            teamDb = TeamDb;
+        }
 
 
         // method with rulesfor creating a new team.

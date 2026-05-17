@@ -1,13 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FarmersLeague.ML.Services;
-using FarmersLeague.DL.DTO;
 using FarmersLeague.ML;
+using FarmersLeague.ML.DTOs;
+using FarmersLeague.ML.Interfaces;
+using FarmersLeague.DL;
 
 public class AssignPlayersModel : PageModel
 {
+    // creating an empty box for the manager at the top so whole page can use it.
+    private PlayerManager playerManager;
 
-    PlayerManager playerManager = new PlayerManager();
+    // The Constructor 
+    public AssignPlayersModel()
+    {
+        // building the databases i want to use in this page
+        IPlayerDb myPlayerDb = new PlayerDb();
+        ITeamDb myTeamDb = new TeamDb();  // if i want to use another db for any reason i need to create a new db and change the db name after the "new".
+
+        // put them into the manager constructor
+        playerManager = new PlayerManager(myPlayerDb, myTeamDb);
+    }
+   
+
 
     // creating the list of players
     public List<AdminPlayerDTO> PlayersWithNoTeam { get; set; } = new List<AdminPlayerDTO>();

@@ -18,7 +18,7 @@ namespace FarmersLeague.ML
         public int TeamID { get; private set; }
         public int LeagueID { get; private set; } = 1; // default value for now, will be updated when I implement the league class
         public string TeamName { get; private set; }
-        public decimal Budget { get; private set; } = 100m;
+        public double Budget { get; private set; } = 100;
         public int Points { get; private set; } = 0;
         public TeamTactics Tactics { get; private set; } = TeamTactics.Balanced;
         public bool IsUserControlled { get; private set; }
@@ -28,7 +28,7 @@ namespace FarmersLeague.ML
 
         //constructor for adding team
 
-        public Team(int leagueID, string teamName, decimal budget, int points, string tacticsString, bool isUserControlled )
+        public Team(int leagueID, string teamName, double budget, int points, string tacticsString, bool isUserControlled )
         {
                 LeagueID = leagueID;
                 TeamName = teamName;
@@ -40,7 +40,7 @@ namespace FarmersLeague.ML
         }
 
         //constructor for database
-        public Team(int teamID, int leagueID, string teamName, decimal budget, int points, string tacticsString, bool isUserControlled)
+        public Team(int teamID, int leagueID, string teamName, double budget, int points, string tacticsString, bool isUserControlled)
         {
             TeamID = teamID;
             LeagueID = leagueID;

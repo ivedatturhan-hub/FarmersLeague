@@ -1,19 +1,20 @@
-﻿using FarmersLeague.DL.DTO;
+﻿using FarmersLeague.ML.DTOs;
 using FarmersLeague.ML;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Numerics;
+using FarmersLeague.ML.Interfaces;
 
 namespace FarmersLeague.DL
 {
-    public class TeamDb
+    public class TeamDb : ITeamDb
     {
         private string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FarmersLeagueDB;Integrated Security=True;";
 
 
 
         //method for creating a new teamm
-        public void CreateTeam(int leagueID, string teamName, decimal budget, int points, string tactics, bool isUserControlled)
+        public void CreateTeam(int leagueID, string teamName, double budget, int points, string tactics, bool isUserControlled)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {

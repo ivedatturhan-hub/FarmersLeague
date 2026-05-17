@@ -1,5 +1,5 @@
 ﻿
-namespace FarmersLeague.DL.DTO
+namespace FarmersLeague.ML.DTOs
 {
     public class AdminPlayerDTO
     {

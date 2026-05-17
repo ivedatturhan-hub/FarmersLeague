@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FarmersLeague.DL\FarmersLeague.DL.csproj" />
     <ProjectReference Include="..\FarmersLeague.ML\FarmersLeague.ML.csproj" />
   </ItemGroup>
 

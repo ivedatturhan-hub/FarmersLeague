@@ -1,17 +1,18 @@
-﻿    using FarmersLeague.DL.DTO;
+﻿    using FarmersLeague.ML.DTOs;
 using FarmersLeague.ML;
 using Microsoft.Data.SqlClient; 
 using System.Collections.Generic;
 using System.Numerics;
+using FarmersLeague.ML.Interfaces;
 
 namespace FarmersLeague.DL
 {
-    public class PlayerDb
+    public class PlayerDb: IPlayerDb
     {
         private string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FarmersLeagueDB;Integrated Security=True;";
 
         //my method to add a player to the database
-        public void AddPlayer(string Name, int Age, string Position, int BaseAttack, int BaseDefence, decimal MarketValue,
+        public void AddPlayer(string Name, int Age, string Position, int BaseAttack, int BaseDefence, double MarketValue,
              bool IsAvailable, int Condition, int Happiness, int Composure, int Aggression, int SeasonGoals, int SeasonAssists, int YellowCards, int RedCards)
         {
             // the sql query. I match @ placeholders to properties of player class like a bridge for security i assume.
@@ -217,7 +218,7 @@ namespace FarmersLeague.DL
 
         // method for getting all the players by their team id. This will allow us to show the players in a team
 
-        public List<AdminPlayerDTO> GetPlayersByTeamID(int teamId)
+        public List<AdminPlayerDTO> GetPlayersByTeamID(int teamID)
         {
             List<AdminPlayerDTO> teamSquad = new List<AdminPlayerDTO>();
 
@@ -227,7 +228,7 @@ namespace FarmersLeague.DL
                 string query = "SELECT * FROM Player WHERE TeamID = @TeamID";
                 SqlCommand command = new SqlCommand(query, connection);
 
-                command.Parameters.AddWithValue("@TeamID", teamId);
+                command.Parameters.AddWithValue("@TeamID", teamID);
 
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();

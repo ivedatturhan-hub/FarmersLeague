@@ -1,14 +1,19 @@
-using System;
+using FarmersLeague.ML.DTOs;
+using FarmersLeague.ML;
+using FarmersLeague.ML.Services;
+using FarmersLeague.DL;
+using FarmersLeague.ML.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using FarmersLeague.ML;
 using static FarmersLeague.ML.Player;
-using FarmersLeague.ML.Services;
 
 namespace FarmersLeague.UI.Pages.Players
 {
     public class AddPlayerModel : PageModel
     {
+        //creating an empty box for the manager at the top so whole page can use it.
+        PlayerManager playerManager;
+
         // I created these temporart properties to hold the user input from the form. 
         // These will be used to fill the constructor of the player class which is read only so I cannot reach directly into the main constructor.
         [BindProperty]
@@ -37,17 +42,28 @@ namespace FarmersLeague.UI.Pages.Players
 
         public string Message { get; set; } = "";
 
+
+        public AddPlayerModel()
+        {
+            //building the spesific databases i want to use
+            IPlayerDb playerDb = new PlayerDb();
+            ITeamDb teamDb = new TeamDb();
+
+            // putting the databases into the manager constructor.
+            playerManager = new PlayerManager(playerDb, teamDb);
+        }
+
+
+
         public RedirectToPageResult OnPost()
         {
             // Creating the player using the user input.
             Player addedPlayer = new Player(InputName, InputAge, InputPosition, InputAttack, InputDefence, InputMarketValue, InputComposure, InputAggression);
 
-            PlayerManager manager = new PlayerManager();
-
             try
             {
                 // check if it fits the rules I set.
-                manager.CreateNewPlayer(addedPlayer);
+                playerManager.CreateNewPlayer(addedPlayer);
                 Message = "Success! Player added to the database.";
             }
             catch (Exception ex)

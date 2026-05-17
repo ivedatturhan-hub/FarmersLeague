@@ -1,8 +1,10 @@
+using FarmersLeague.DL;
+using FarmersLeague.ML;
+using FarmersLeague.ML.Interfaces;
+using FarmersLeague.ML.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using FarmersLeague.ML;
 using System;
-using FarmersLeague.ML.Services;
 
 namespace FarmersLeague.UI.Pages.Teams
 {
@@ -13,14 +15,27 @@ namespace FarmersLeague.UI.Pages.Teams
         public string InputTeamName { get; set; }
         public string Message { get; set; } = "";
 
+
+        // creating an empty box for the manager at the top so whole page can use it.
+        private TeamManager teamManager;
+
+        public CreateAdminTeamModel()
+        {
+            //building the spesific databases i want to use
+            IPlayerDb playerDb = new PlayerDb();
+            ITeamDb teamDb = new TeamDb();
+
+            // putting the databases into the manager constructor.
+            teamManager = new TeamManager(playerDb, teamDb);
+        }
+
         public RedirectToPageResult OnPost()
         {
             Team newTeam = new Team(1, InputTeamName, 100, 0, Team.TeamTactics.Balanced.ToString(), false);
-            TeamManager manager = new TeamManager();
 
             try
             {
-                manager.CreateNewTeam(newTeam);
+                teamManager.CreateNewTeam(newTeam);
                 Message = "Team created successfully!";
             }
             catch (Exception ex)

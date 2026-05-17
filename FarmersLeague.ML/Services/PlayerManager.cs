@@ -1,13 +1,23 @@
-﻿using System;
-using FarmersLeague.DL;
-using FarmersLeague.DL.DTO;
+﻿
+using FarmersLeague.ML.Interfaces;
+using System;
+using FarmersLeague.ML.DTOs;
 
 namespace FarmersLeague.ML.Services
 {
     public class PlayerManager
     {
-        private PlayerDb playerDb = new PlayerDb();
-        private TeamDb teamDb = new TeamDb();
+        // creating private variables, but using interface, not the real database
+        private IPlayerDb playerDb;
+        private ITeamDb teamDb;
+
+        // just like the player class, i have a constructor for the player manager for creating a manager. I need to choose which db i use.
+        public PlayerManager(IPlayerDb PlayerDb, ITeamDb TeamDb)
+        {
+            playerDb = PlayerDb;
+            teamDb = TeamDb;
+        }
+
 
 
         // method for creating a new player
@@ -70,7 +80,7 @@ namespace FarmersLeague.ML.Services
 
 
             // if the code faced no problem, adds the player
-            playerDb.AddPlayer(newPlayer.Name, newPlayer.Age, newPlayer.Position.ToString(), newPlayer.BaseAttack, newPlayer.BaseDefence, Convert.ToDecimal(newPlayer.MarketValue),
+            playerDb.AddPlayer(newPlayer.Name, newPlayer.Age, newPlayer.Position.ToString(), newPlayer.BaseAttack, newPlayer.BaseDefence, Convert.ToDouble(newPlayer.MarketValue),
                 newPlayer.IsAvailable, newPlayer.Condition, newPlayer.Happiness, newPlayer.Composure, newPlayer.Aggression, newPlayer.SeasonGoals, newPlayer.SeasonAssists, newPlayer.YellowCards, newPlayer.RedCards);
         }
 
