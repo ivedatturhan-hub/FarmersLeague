@@ -44,13 +44,14 @@ namespace FarmersLeague.UI.Pages
             // executing the method that gets the players by the team id and assigning it to the squad list
             Squad = playerManager.GetPlayersByTeamID(id);
         }
-
-
-        public IActionResult OnPostDelete(int id)
+        
+        public IActionResult OnPostDelete(int id, int teamId)
         {
-            // 1. Call the manager to delete the player
+            // calling the manager to delete the player
+
             playerManager.RemovePlayerFromTeam(id);
-            return RedirectToPage("/Teams/TeamPlayers", new { id = CurrentTeamId });
+
+            return RedirectToPage("/Teams/TeamPlayers", new { id = teamId });
         }
     }
 }

@@ -17,7 +17,7 @@ namespace FarmersLeague.UI.Pages
         public List<AdminTeamDTO> TeamList { get; set; }
 
         public AdminTeamsModel()
-        {
+        { 
             //building the spesific databases i want to use in this page
             IPlayerDb playerDb = new PlayerDb();
             ITeamDb teamDb = new TeamDb();
@@ -35,9 +35,9 @@ namespace FarmersLeague.UI.Pages
         // method for deleting teams
         public IActionResult OnPostDelete(int id)
         {
-            // 1. Call the manager to delete the team
+            // calling the manager to delete the team
             teamManager.DeleteTeam(id);
-            // 2. Refresh the page so the deleted team disappears from the screen!
+   
             return RedirectToPage();
         }
     }

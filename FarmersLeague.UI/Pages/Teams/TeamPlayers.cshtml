@@ -50,6 +50,7 @@
                         <td>
                         <form method="post" asp-page-handler="Delete" class="d-inline">
                             <input type="hidden" name="id" value="@player.PlayerID" />
+                                <input type="hidden" name="teamId" value="@Model.CurrentTeamId" />
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to remove @player.Name from the team?');">Remove</button>
                         </form>
 						</td>
