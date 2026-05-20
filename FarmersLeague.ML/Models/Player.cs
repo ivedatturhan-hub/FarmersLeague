@@ -27,8 +27,9 @@
         public int SeasonAssists { get; private set; } = 0;
         public int YellowCards { get; private set; } = 0;
         public int RedCards { get; private set; } = 0;
+        public int TeamID { get; private set; } = 0; 
 
-         // constructor for adding a new player 
+        // constructor for adding a new player 
         public Player(string name, int age, Positions position, int baseAttack, int baseDefence, double marketValue, int composure, int aggression)
         {
             Name = name;

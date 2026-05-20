@@ -19,5 +19,6 @@ namespace FarmersLeague.ML.DTOs
         public int SeasonAssists { get; set; }
         public int YellowCards { get;  set; } 
         public int RedCards { get; set; } 
+        public int TeamID { get; set; }
     }
 }
