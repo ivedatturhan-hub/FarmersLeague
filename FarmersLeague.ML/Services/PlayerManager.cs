@@ -145,6 +145,11 @@ namespace FarmersLeague.ML.Services
                 throw new Exception("Transfer failed: The team does not have enough budget for this player.");
             }
 
+            if (player.TeamID !=0 )
+            {
+                throw new Exception("Transfer failed: The player is already in a team. Please remove the player from their current team before transferring.");
+            }
+
             teamDb.UpdateTeamBudget(teamID, remainingBudget);
 
             playerDb.ChangePlayerTeam(playerID, teamID);
