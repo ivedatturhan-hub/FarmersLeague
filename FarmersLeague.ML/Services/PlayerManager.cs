@@ -157,10 +157,15 @@ namespace FarmersLeague.ML.Services
 
 
         // method for removing a player from a team
-        public void RemovePlayerFromTeam(int playerID)
+        public void RemovePlayerFromTeam(int playerID, int teamID)
         {
+            var player = playerDb.GetPlayerByID(playerID);
+            var team = teamDb.GetTeamByID(teamID);
 
+            double newBudget = team.Budget + player.MarketValue;
             // add rules here later
+
+            teamDb.UpdateTeamBudget(teamID, newBudget);
             playerDb.RemovePlayerFromTeam(playerID);
 
         }

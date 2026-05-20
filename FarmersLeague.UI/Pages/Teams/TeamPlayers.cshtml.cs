@@ -49,7 +49,7 @@ namespace FarmersLeague.UI.Pages
         {
             // calling the manager to delete the player
 
-            playerManager.RemovePlayerFromTeam(id);
+            playerManager.RemovePlayerFromTeam(id, teamId);
 
             return RedirectToPage("/Teams/TeamPlayers", new { id = teamId });
         }
