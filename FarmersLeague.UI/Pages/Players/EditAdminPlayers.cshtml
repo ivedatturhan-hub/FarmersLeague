@@ -28,9 +28,17 @@
                 <input type="number" asp-for="PlayerToEdit.Age" class="form-control" />
             </div>
 
+
             <div class="mb-3">
                 <label>Position</label>
-                <input type="text" asp-for="PlayerToEdit.Position" class="form-control" />
+                <select asp-for="PlayerToEdit.Position" class="form-control">
+                    <option value="">-- Select a Position --</option>
+
+                    @foreach (var positionName in Enum.GetNames(typeof(FarmersLeague.ML.Player.Positions)))
+                    {
+                        <option value="@positionName">@positionName</option>
+                    }
+                </select>
             </div>
 
 
