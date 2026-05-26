@@ -10,6 +10,9 @@
 <div class="row">
     <div class="col-md-4">
         <!-- The form that sends data back to OnPost() -->
+
+
+        <div asp-validation-summary="All" style="color:red; font-weight:bold;"></div>
         <form method="post">
 
             <!-- THE INVISIBLE BARCODE: Crucial so the database knows WHO to update -->
@@ -51,5 +54,11 @@
             <!-- Cancel button redirects the user to previous page -->
             <a asp-page="/Players/AdminPlayers" class="btn btn-secondary">Cancel</a>
         </form>
+
+
+        @if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <h3 style="color:green;">@Model.Message</h3>
+        }
     </div>
 </div>

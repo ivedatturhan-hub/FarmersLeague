@@ -111,7 +111,59 @@ namespace FarmersLeague.ML.Services
         // method for updating a player
         public void UpdateThePlayer(AdminPlayerDTO updatedPlayer)
         {
-            // add the same rules as in create new player here later
+            if (string.IsNullOrWhiteSpace(updatedPlayer.Name))
+            {
+                throw new Exception("Error: A player must have a name!"); //throw stops the code no matter what, and shows the message in the brackets
+            }
+
+
+            if (updatedPlayer.BaseAttack < 0 || updatedPlayer.BaseAttack > 99)
+            {
+                throw new Exception("Error: Attack rating must be between 0 and 99.");
+            }
+
+
+            if (updatedPlayer.BaseDefence < 0 || updatedPlayer.BaseDefence > 99)
+            {
+                throw new Exception("Error: Defence rating must be between 0 and 99.");
+            }
+
+
+            if (updatedPlayer.MarketValue < 0)
+            {
+                throw new Exception("Error: Market value cannot be negative.");
+            }
+
+
+            if (updatedPlayer.Condition < 0 || updatedPlayer.Condition > 100)
+            {
+                throw new Exception("Error: Condition must be between 0 and 100.");
+            }
+
+
+            if (updatedPlayer.Happiness < 0 || updatedPlayer.Happiness > 100)
+            {
+                throw new Exception("Error: Happiness must be between 0 and 100.");
+            }
+
+
+            if (updatedPlayer.Composure < 0 || updatedPlayer.Composure > 100)
+            {
+                throw new Exception("Error: Composure must be between 0 and 100.");
+            }
+
+
+            if (updatedPlayer.Aggression < 0 || updatedPlayer.Aggression > 100)
+            {
+                throw new Exception("Error: Aggression must be between 0 and 100.");
+            }
+
+            if (!Enum.IsDefined(typeof(Player.Positions), updatedPlayer.Position))
+            {
+                throw new Exception("Error: You must select a valid player position.");
+            }
+
+
             playerDb.UpdatePlayer(updatedPlayer);
 
         }

@@ -6,6 +6,8 @@
 
 <h1>Add a New Player to the League</h1>
 
+<div asp-validation-summary="All" style="color:red; font-weight:bold;"></div>
+
 <form method="post">
     <div>
         <label>Player Name:</label>
@@ -14,19 +16,18 @@
     <br />
 
     <div>
-    <label>Player Age:</label>
-    <input type="number" asp-for="InputAge" required />
+        <label>Player Age:</label>
+        <input type="number" asp-for="InputAge" required />
     </div>
     <br />
 
     <div class="form-group">
         <label>Player Position</label>
-
         <select asp-for="InputPosition" asp-items="Html.GetEnumSelectList<FarmersLeague.ML.Player.Positions>()" class="form-control">
             <option value="">-- Select a Position --</option>
         </select>
     </div>
-
+    <br />
 
     <div>
         <label>Base Attack (0-99):</label>
@@ -63,5 +64,5 @@
 
 @if (!string.IsNullOrEmpty(Model.Message))
 {
-    <h3 style="color:red;">@Model.Message</h3>
+    <h3 style="color:green;">@Model.Message</h3>
 }

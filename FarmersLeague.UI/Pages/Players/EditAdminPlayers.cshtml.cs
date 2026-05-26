@@ -5,6 +5,7 @@ using FarmersLeague.DL;
 using FarmersLeague.ML.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using static FarmersLeague.ML.Player;
 
 namespace FarmersLeague.UI.Pages
 {
@@ -12,6 +13,7 @@ namespace FarmersLeague.UI.Pages
     {
         // creating an empty box for the manager at the top so whole page can use it.
         private PlayerManager playerManager;
+        public string Message { get; set; }
 
         public EditAdminPlayersModel()
         {
@@ -36,10 +38,18 @@ namespace FarmersLeague.UI.Pages
         //  runs when user clicks save button.
         public IActionResult OnPost()
         {
-            // executes the update method in the manager.
-            playerManager.UpdateThePlayer(PlayerToEdit);
+            try
+            {
+                playerManager.UpdateThePlayer(PlayerToEdit);
+                Message = "Success! Player is edited.";
+                return RedirectToPage("/Players/AdminPlayers");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return Page();
+            }
 
-            return RedirectToPage("/Players/AdminPlayers");
         }
     }
 }

@@ -55,7 +55,7 @@ namespace FarmersLeague.UI.Pages.Players
 
 
 
-        public RedirectToPageResult OnPost()
+        public IActionResult OnPost()
         {
             // Creating the player using the user input.
             Player addedPlayer = new Player(InputName, InputAge, InputPosition, InputAttack, InputDefence, InputMarketValue, InputComposure, InputAggression);
@@ -65,13 +65,15 @@ namespace FarmersLeague.UI.Pages.Players
                 // check if it fits the rules I set.
                 playerManager.CreateNewPlayer(addedPlayer);
                 Message = "Success! Player added to the database.";
+                return RedirectToPage("/Players/AdminPlayers");
             }
             catch (Exception ex)
             {
-                Message = ex.Message;
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return Page();
             }
 
-            return RedirectToPage("/Players/AdminPlayers");
+            
         }
 
     }
