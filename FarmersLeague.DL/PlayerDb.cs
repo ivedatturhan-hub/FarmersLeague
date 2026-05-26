@@ -206,6 +206,8 @@ namespace FarmersLeague.DL
                         editedPlayer.MarketValue = (double)Convert.ToDecimal(reader["MarketValue"]);
                         editedPlayer.BaseAttack = Convert.ToInt32(reader["BaseAttack"]);
                         editedPlayer.BaseDefence = Convert.ToInt32(reader["BaseDefence"]);
+                        editedPlayer.Composure = Convert.ToInt32(reader["Composure"]);
+                        editedPlayer.Aggression = Convert.ToInt32(reader["Aggression"]);
                     }
                 }
 
