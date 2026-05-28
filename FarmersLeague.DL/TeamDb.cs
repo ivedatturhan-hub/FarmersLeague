@@ -11,8 +11,6 @@ namespace FarmersLeague.DL
     {
         private string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FarmersLeagueDB;Integrated Security=True;";
 
-
-
         //method for creating a new teamm
         public void CreateTeam(int leagueID, string teamName, double budget, int points, string tactics, bool isUserControlled)
         {

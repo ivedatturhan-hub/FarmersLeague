@@ -10,6 +10,7 @@ public class AssignPlayersModel : PageModel
 {
     // creating an empty box for the manager at the top so whole page can use it.
     private PlayerManager playerManager;
+    private TeamManager teamManager;
 
     // The Constructor 
     public AssignPlayersModel()
@@ -20,9 +21,9 @@ public class AssignPlayersModel : PageModel
 
         // put them into the manager constructor
         playerManager = new PlayerManager(myPlayerDb, myTeamDb);
+        teamManager = new TeamManager(myPlayerDb, myTeamDb);
     }
    
-
 
     // creating the list of players
     public List<AdminPlayerDTO> PlayersWithNoTeam { get; set; } = new List<AdminPlayerDTO>();
@@ -33,9 +34,11 @@ public class AssignPlayersModel : PageModel
 
     [BindProperty]
     public int TargetTeamID { get; set; }
+    public AdminTeamDTO TargetTeam { get; set; }
 
     public void OnGet(int teamId)
     {
+        TargetTeam = teamManager.GetTeamByID(teamId);
         TargetTeamID = teamId;
         PlayersWithNoTeam = playerManager.GetPlayersWithNoTeam();
     }

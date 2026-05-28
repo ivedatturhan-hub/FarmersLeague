@@ -1,7 +1,8 @@
 ﻿@page
 @model AssignPlayersModel
 
-<h2>Assign a player to Team</h2>
+<h2>Assign a player to @Model.TargetTeam.TeamName</h2>
+<h4 class="text-success">Available Budget: €@Model.TargetTeam.Budget.ToString("N0") Million</h4>
 
 <form method="post">
 
@@ -22,5 +23,7 @@
     <br />
 
     <button type="submit" class="btn btn-primary">Complete Transfer</button>
+    <!-- A handy button to go back to the main teams list -->
+    <a asp-page="/Teams/TeamPlayers" asp-route-id="@Model.TargetTeamID" class="btn btn-secondary">Back</a>
 
 </form>
