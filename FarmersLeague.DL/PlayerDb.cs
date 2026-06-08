@@ -9,7 +9,7 @@ namespace FarmersLeague.DL
 {
     public class PlayerDb: IPlayerDb
     {
-        private string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FarmersLeagueDB;Integrated Security=True;";
+        private string _connectionString = "Server=localhost\\SQLEXPRESS;Database=FarmersLeague;Trusted_Connection=True;TrustServerCertificate=True;";
 
         //my method to add a player to the database
         public void AddPlayer(string Name, int Age, string Position, int BaseAttack, int BaseDefence, double MarketValue,
