@@ -4,7 +4,7 @@ using FarmersLeague.ML.Interfaces;
 using FarmersLeague.ML.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-
+using FarmersLeague.Test;
 namespace FarmersLeague.Tests
 {
     [TestClass]
@@ -44,7 +44,7 @@ namespace FarmersLeague.Tests
             // creating a fake team and a player by using the constructors in the fake db
 
             AdminTeamDTO testingTeam = new AdminTeamDTO { TeamID = 2, Budget = 100 };
-            AdminPlayerDTO testingPlayer = new AdminPlayerDTO {PlayerID = 2, MarketValue = 40 };
+            AdminPlayerDTO testingPlayer = new AdminPlayerDTO { PlayerID = 2, MarketValue = 40 };
 
 
             ITeamDb testingTeamDb = new FakeTeamDb(testingTeam);
@@ -74,7 +74,7 @@ namespace FarmersLeague.Tests
             //arrange part
 
             AdminTeamDTO testingTeam = new AdminTeamDTO { TeamID = 3, Budget = 100 };
-            AdminPlayerDTO testingPlayer = new AdminPlayerDTO { PlayerID = 3, TeamID = 3,MarketValue = 40 };
+            AdminPlayerDTO testingPlayer = new AdminPlayerDTO { PlayerID = 3, TeamID = 3, MarketValue = 40 };
 
             ITeamDb testingTeamDb = new FakeTeamDb(testingTeam);
             IPlayerDb testingPlayerDb = new FakePlayerDb(testingPlayer);
@@ -92,128 +92,8 @@ namespace FarmersLeague.Tests
 
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // these fake databases only exist inside the test project!
-    public class FakePlayerDb : IPlayerDb
-    {
-
-        private AdminPlayerDTO fakePlayer;
-
-
-        //constructor to create a fake player
-        public FakePlayerDb(AdminPlayerDTO FakePlayer)
-        {
-            fakePlayer = FakePlayer;
-        }
-
-
-
-
-
-
-        // The manager will call this, so we hand back a player who costs 100 million
-        public AdminPlayerDTO GetPlayerByID(int id)
-        {
-            return fakePlayer;
-        }
-
-
-
-        public void AddPlayer(string Name, int Age, string Position, int BaseAttack, int BaseDefence, double MarketValue, bool IsAvaible, int Condition, int Happiness, int Composure, int Aggression, int SeasonGoals, int SeasonAssists, int YellowCards, int RedCards)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<AdminPlayerDTO> GetAllPlayersForAdmin()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<AdminPlayerDTO> GetPlayersWithNoTeam()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdatePlayer(AdminPlayerDTO updatedPlayer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<AdminPlayerDTO> GetPlayersByTeamID(int teamID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemovePlayerFromTeam(int playerID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeletePlayer(int playerID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ChangePlayerTeam(int playerID, int teamID)
-        {
-            
-        }
-    }
-
-    public class FakeTeamDb : ITeamDb
-    {
-        private AdminTeamDTO fakeTeam;
-
-
-        public FakeTeamDb(AdminTeamDTO FakeTeam)
-        {
-            fakeTeam = FakeTeam;
-        }
-
-        public void CreateTeam(int leagueID, string teamName, double budget, int points, string tactics, bool isUserControlled)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteTeam(int teamID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<AdminTeamDTO> GetAllTeamsForAdmin()
-        {
-            throw new NotImplementedException();
-        }
-
-        // The manager will call this, so we hand back a team with only 500 euros!
-        public AdminTeamDTO GetTeamByID(int teamID)
-        {
-            return fakeTeam;
-        }
-
-        public void UpdateTeam(AdminTeamDTO updatedTeam)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateTeamBudget(int teamID, double newBudget) 
-        { 
-            fakeTeam.Budget = newBudget;
-        }
-    }
 }
+
+
+
+    
