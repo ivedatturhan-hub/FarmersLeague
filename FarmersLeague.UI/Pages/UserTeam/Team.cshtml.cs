@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 
 
-namespace FarmersLeague.UI.Pages.Teams
+namespace FarmersLeague.UI.Pages.UserTeam
 {
     public class AddTeamModel : PageModel
     {

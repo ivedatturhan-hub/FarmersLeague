@@ -6,7 +6,7 @@ using FarmersLeague.ML.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FarmersLeague.UI.Pages
+namespace FarmersLeague.UI.Pages.Teams
 {
     public class AdminTeamsModel : PageModel
     {
