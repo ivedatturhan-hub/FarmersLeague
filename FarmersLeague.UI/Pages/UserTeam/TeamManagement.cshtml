@@ -1,0 +1,125 @@
+﻿@page
+@model FarmersLeague.UI.Pages.UserTeam.TeamManagementModel
+@{
+    ViewData["Title"] = "Manage Line-up";
+}
+
+<h2>Set Line-up & Tactics</h2>
+
+<div asp-validation-summary="All" class="text-danger font-weight-bold"></div>
+
+<form method="post">
+
+    <div class="form-group mb-4">
+        <label class="font-weight-bold">Formation:</label>
+        <select asp-for="SelectedTactic" class="form-control w-25">
+            <option value="4-4-2">4-4-2</option>
+            <option value="4-3-3">4-3-3</option>
+            <option value="3-5-2">3-5-2</option>
+        </select>
+    </div>
+
+    <h4>Starting XI</h4>
+    <div class="row">
+        <div class="col-md-6">
+
+            <label>1. Goalkeeper</label>
+            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
+                <option value="">-- Select Player --</option>
+            </select>
+
+            <label>2. Defender</label>
+            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
+                <option value="">-- Select Player --</option>
+            </select>
+
+            <label>3. Defender</label>
+            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
+                <option value="">-- Select Player --</option>
+            </select>
+
+            <label>4. Defender</label>
+            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
+                <option value="">-- Select Player --</option>
+            </select>
+
+            <label>5. Defender</label>
+            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
+                <option value="">-- Select Player --</option>
+            </select>
+
+            <label>6. Midfielder</label>
+            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
+                <option value="">-- Select Player --</option>
+            </select>
+
+            <label>7. Midfielder</label>
+            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
+                <option value="">-- Select Player --</option>
+            </select>
+
+            <label>8. Midfielder</label>
+            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
+                <option value="">-- Select Player --</option>
+            </select>
+
+            <label>9. Midfielder</label>
+            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
+                <option value="">-- Select Player --</option>
+            </select>
+
+            <label>10. Striker</label>
+            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
+                <option value="">-- Select Player --</option>
+            </select>
+
+            <label>11. Striker</label>
+            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
+                <option value="">-- Select Player --</option>
+            </select>
+
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Save Line-up</button>
+</form>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const dropdowns = document.querySelectorAll('.player-select');
+
+            function updateDropdowns() {
+                const selectedPlayerIds = [];
+
+                // Find all currently selected players
+                dropdowns.forEach(d => {
+                    if (d.value !== "") {
+                        selectedPlayerIds.push(d.value);
+                    }
+                });
+
+                // Disable those players in the other dropdowns
+                dropdowns.forEach(dropdown => {
+                    Array.from(dropdown.options).forEach(option => {
+                        if (option.value === "") return;
+
+                        if (selectedPlayerIds.includes(option.value) && option.value !== dropdown.value) {
+                            option.disabled = true;
+                        } else {
+                            option.disabled = false;
+                        }
+                    });
+                });
+            }
+
+            // Run this every time the user changes a dropdown
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('change', updateDropdowns);
+            });
+
+            updateDropdowns();
+        });
+    </script>
+}

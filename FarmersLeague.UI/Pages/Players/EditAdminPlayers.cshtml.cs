@@ -40,7 +40,7 @@ namespace FarmersLeague.UI.Pages
         {
             try
             {
-                playerManager.UpdateThePlayer(PlayerToEdit);
+                playerManager.UpdatePlayer(PlayerToEdit);
                 Message = "Success! Player is edited.";
                 return RedirectToPage("/Players/AdminPlayers");
             }

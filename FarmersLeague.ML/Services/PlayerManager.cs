@@ -81,7 +81,7 @@ namespace FarmersLeague.ML.Services
 
             // if the code faced no problem, adds the player
             playerDb.AddPlayer(newPlayer.Name, newPlayer.Age, newPlayer.Position.ToString(), newPlayer.BaseAttack, newPlayer.BaseDefence, Convert.ToDouble(newPlayer.MarketValue),
-                newPlayer.IsAvailable, newPlayer.Condition, newPlayer.Happiness, newPlayer.Composure, newPlayer.Aggression, newPlayer.SeasonGoals, newPlayer.SeasonAssists, newPlayer.YellowCards, newPlayer.RedCards);
+                newPlayer.IsAvailable, newPlayer.IsStarting, newPlayer.Condition, newPlayer.Happiness, newPlayer.Composure, newPlayer.Aggression, newPlayer.SeasonGoals, newPlayer.SeasonAssists, newPlayer.YellowCards, newPlayer.RedCards);
         }
 
 
@@ -109,7 +109,7 @@ namespace FarmersLeague.ML.Services
         }
 
         // method for updating a player
-        public void UpdateThePlayer(AdminPlayerDTO updatedPlayer)
+        public void UpdatePlayer(AdminPlayerDTO updatedPlayer)
         {
             if (string.IsNullOrWhiteSpace(updatedPlayer.Name))
             {
