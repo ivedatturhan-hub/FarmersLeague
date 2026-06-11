@@ -13,11 +13,11 @@ namespace FarmersLeague.DL
 
         //my method to add a player to the database
         public void AddPlayer(string Name, int Age, string Position, int BaseAttack, int BaseDefence, double MarketValue,
-             bool IsAvailable, int Condition, int Happiness, int Composure, int Aggression, int SeasonGoals, int SeasonAssists, int YellowCards, int RedCards)
+             bool IsAvailable, bool IsStarting, int Condition, int Happiness, int Composure, int Aggression, int SeasonGoals, int SeasonAssists, int YellowCards, int RedCards)
         {
             // the sql query. I match @ placeholders to properties of player class like a bridge for security i assume.
-            string query = "INSERT INTO Player (Name, Age, Position, BaseAttack, BaseDefence, MarketValue, IsAvailable, Condition, Happiness, Composure, Aggression, SeasonGoals, SeasonAssists, YellowCards, RedCards) " +
-                           "VALUES (@Name, @Age, @Position, @BaseAttack, @BaseDefence, @MarketValue, 1, @Condition, @Happiness, @Composure, @Aggression, @SeasonGoals, @SeasonAssists, @YellowCards, @RedCards)";
+            string query = "INSERT INTO Player (Name, Age, Position, BaseAttack, BaseDefence, MarketValue, IsAvailable, IsStarting, Condition, Happiness, Composure, Aggression, SeasonGoals, SeasonAssists, YellowCards, RedCards) " +
+                           "VALUES (@Name, @Age, @Position, @BaseAttack, @BaseDefence, @MarketValue, 1, 0, @Condition, @Happiness, @Composure, @Aggression, @SeasonGoals, @SeasonAssists, @YellowCards, @RedCards)";
 
             // i connect my database using the connection string i made above. 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -34,6 +34,7 @@ namespace FarmersLeague.DL
                 command.Parameters.AddWithValue("@BaseDefence", BaseDefence);
                 command.Parameters.AddWithValue("@MarketValue", MarketValue);
                 command.Parameters.AddWithValue("@IsAvailable", IsAvailable);
+                command.Parameters.AddWithValue("@IsStarting", IsStarting);
                 command.Parameters.AddWithValue("@Condition", Condition);
                 command.Parameters.AddWithValue("@Happiness", Happiness);
                 command.Parameters.AddWithValue("@Composure", Composure);
@@ -76,6 +77,7 @@ namespace FarmersLeague.DL
                     playerAdmin.BaseDefence = Convert.ToInt32(reader["BaseDefence"]);
                     playerAdmin.MarketValue = (double)Convert.ToDecimal(reader["MarketValue"]);
                     playerAdmin.IsAvailable = Convert.ToBoolean(reader["IsAvailable"]);
+                    playerAdmin.IsStarting = Convert.ToBoolean(reader["IsStarting"]);
                     playerAdmin.Condition = Convert.ToInt32(reader["Condition"]);
                     playerAdmin.Happiness = Convert.ToInt32(reader["Happiness"]);
                     playerAdmin.Composure = Convert.ToInt32(reader["Composure"]);
@@ -158,7 +160,8 @@ namespace FarmersLeague.DL
                 // the sql command to update the spesific player data for a spesific id
                 string query = @"UPDATE Player
                                     SET Name = @Name, Age = @Age, Position = @Position, MarketValue = @MarketValue, BaseAttack = @BaseAttack, BaseDefence = @BaseDefence,
-                                    Composure = @Composure, Aggression = @Aggression
+                                    Composure = @Composure, Aggression = @Aggression, SeasonGoals = @SeasonGoals, SeasonAssists = @SeasonAssists, YellowCards = @YellowCards,
+                                    RedCards = @RedCards, IsAvailable = @IsAvailable, IsStarting = @IsStarting, Condition = @Condition, Happiness = @Happiness
                                  WHERE PlayerID = @PlayerID";
 
                 SqlCommand command = new SqlCommand(query, connection);
@@ -170,6 +173,14 @@ namespace FarmersLeague.DL
                 command.Parameters.AddWithValue("@BaseDefence", updatedPlayer.BaseDefence);
                 command.Parameters.AddWithValue("@Composure", updatedPlayer.Composure);
                 command.Parameters.AddWithValue("@Aggression", updatedPlayer.Aggression);
+                command.Parameters.AddWithValue("@SeasonGoals", updatedPlayer.SeasonGoals);
+                command.Parameters.AddWithValue("@SeasonAssists", updatedPlayer.SeasonAssists);
+                command.Parameters.AddWithValue("@YellowCards", updatedPlayer.YellowCards);
+                command.Parameters.AddWithValue("@RedCards", updatedPlayer.RedCards);
+                command.Parameters.AddWithValue("@IsAvailable", updatedPlayer.IsAvailable);
+                command.Parameters.AddWithValue("@IsStarting", updatedPlayer.IsStarting);
+                command.Parameters.AddWithValue("@Condition", updatedPlayer.Condition);
+                command.Parameters.AddWithValue("@Happiness", updatedPlayer.Happiness);
                 command.Parameters.AddWithValue("@PlayerID", updatedPlayer.PlayerID); // this is to find the player, not to change the id
 
                 command.ExecuteNonQuery();
@@ -246,6 +257,9 @@ namespace FarmersLeague.DL
                     player.MarketValue = (double)Convert.ToDecimal(reader["MarketValue"]);
                     player.BaseAttack = Convert.ToInt32(reader["BaseAttack"]);
                     player.BaseDefence = Convert.ToInt32(reader["BaseDefence"]);
+                    player.IsStarting = Convert.ToBoolean(reader["IsStarting"]);
+                    player.IsAvailable = Convert.ToBoolean(reader["IsAvailable"]);
+                 
 
                     teamSquad.Add(player);
                 }

@@ -11,6 +11,7 @@ namespace FarmersLeague.ML.DTOs
         public int BaseDefence { get; set; }
         public double MarketValue { get; set; }
         public bool IsAvailable { get; set; }
+        public bool IsStarting { get; set; }
         public int Condition { get; set; } 
         public int Happiness { get; set; }
         public int Composure { get; set; }

@@ -19,6 +19,7 @@
         public int BaseDefence { get; private set; }
         public double MarketValue { get; private set; }
         public bool IsAvailable { get; private set; }
+        public bool IsStarting { get; private set; }
         public int Condition { get; private set; } = 100;
         public int Happiness { get; private set; } = 100;
         public int Composure { get; private set; }
@@ -44,7 +45,7 @@
 
         // constructor for loading a player from the database (includes every property)
         public Player(int playerID, string name, int age, Positions position, int baseAttack, int baseDefence, double marketValue,
-        bool isAvailable, int condition, int happiness, int composure, int aggression, int seasonGoals, int seasonAssists, int yellowCards, int redCards)
+        bool isAvailable, bool isStarting, int condition, int happiness, int composure, int aggression, int seasonGoals, int seasonAssists, int yellowCards, int redCards)
         {
             PlayerID = playerID;
             Name = name;
@@ -54,6 +55,7 @@
             BaseDefence = baseDefence;
             MarketValue = marketValue;
             IsAvailable = isAvailable;
+            IsStarting = isStarting;
             Condition = condition;
             Happiness = happiness;
             Composure = composure;
