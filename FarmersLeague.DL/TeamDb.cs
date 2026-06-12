@@ -157,5 +157,36 @@ namespace FarmersLeague.DL
                 command.ExecuteNonQuery();
             }
         }
+
+        public AdminTeamDTO GetUserControlledTeam()
+        {
+            // i started with null instead of "new". If i did not do that, in any case that database could not find a team, it would return the team that i created anyway
+            AdminTeamDTO userTeam = null;
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT * FROM Team WHERE IsUserControlled = 1";
+                SqlCommand command = new SqlCommand(query, connection);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        // i create the team when database finds a team that is user controlled. 
+                        userTeam = new AdminTeamDTO();
+
+                        userTeam.TeamID = Convert.ToInt32(reader["TeamID"]);
+                        userTeam.LeagueID = Convert.ToInt32(reader["LeagueID"]);
+                        userTeam.TeamName = reader["TeamName"].ToString();
+                        userTeam.Budget = Convert.ToDouble(reader["Budget"]);
+                        userTeam.Points = Convert.ToInt32(reader["Points"]);
+                        userTeam.Tactics = reader["Tactics"].ToString();
+                        userTeam.IsUserControlled = Convert.ToBoolean(reader["IsUserControlled"]);
+                    }
+                }
+            }
+            return userTeam;
+        }
     }
 }

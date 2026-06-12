@@ -14,5 +14,6 @@ namespace FarmersLeague.ML.Interfaces
         void UpdateTeam(AdminTeamDTO updatedTeam);
         AdminTeamDTO GetTeamByID(int teamID);
         void UpdateTeamBudget(int teamID, double newBudget);
+        AdminTeamDTO GetUserControlledTeam();
     }
 }

@@ -65,6 +65,19 @@ namespace FarmersLeague.ML.Services
         {
             return teamDb.GetTeamByID(teamID);
         }
+
+
+        // method for getting the team that the user controls
+        public AdminTeamDTO GetUserControlledTeam()
+        {
+            AdminTeamDTO team = teamDb.GetUserControlledTeam();
+
+            if (team == null)
+            {
+                throw new Exception("No user-controlled team found.");
+            }
+            return team;
+        }
     }
 }
 
