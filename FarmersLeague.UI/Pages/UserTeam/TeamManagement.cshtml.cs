@@ -34,23 +34,32 @@ namespace FarmersLeague.UI.Pages.UserTeam
             teamManager = new TeamManager(playerDb, teamDb);
         }
 
-        public void OnGet(int teamId)
+        public void OnGet()
         {
+            // getting the only team that the user has, and its id, and also the tactics
+            var team = teamManager.GetUserControlledTeam();
+            SelectedTactic = team.Tactics;
             // getting all the players who plays for the spesific team
-            var players = playerManager.GetPlayersByTeamID(teamId);
+            var players = playerManager.GetPlayersByTeamID(team.TeamID);
+
+            // getting the ids of the players who are starting, and putting them in the StarterIDs box that we created earlier
+            StarterIDs = players.Where(p => p.IsStarting).Select(p => p.PlayerID).ToList();
+
+            // If the team is brand new or missing players, fill the rest of the list with 0s so the HTML loop doesn't crash looking for 11 slots.
+            while (StarterIDs.Count < 11)
+            {
+                StarterIDs.Add(0); // 0 represents "-- Select Player --"
+            }
+
+
 
             // putting these players to a dropdown list I created earlier
             PlayerOptions = new SelectList(players, "PlayerID", "Name");
-
-
-            // getting the current team and its tactic so i can show it
-            AdminTeamDTO team = teamManager.GetTeamByID(teamId);
-            SelectedTactic = team.Tactics;
         }
 
 
         //saving the changes
-        public IActionResult OnPost(int teamId)
+        public IActionResult OnPost()
         {
             // --- CHECK 1: Did they pick exactly 11 players? ---
             // .Distinct() is a magic word that deletes any duplicates from the list.
@@ -62,20 +71,26 @@ namespace FarmersLeague.UI.Pages.UserTeam
             {
                 ModelState.AddModelError("", "You can not select the same player more than one position.");
 
-                OnGet(teamId); // Reload the dropdowns so the page doesn't break
+                OnGet(); // Reload the dropdowns so the page doesn't break
                 return Page(); // Stop saving and show the page again.
             }
 
+            if (StarterIDs.Contains(0))
+            {
+                ModelState.AddModelError("", "You must select a player for every position.");
+                OnGet();
+                return Page();
+            }
 
             //saving the tactics
 
-            var team = teamManager.GetTeamByID(teamId);
+            var team = teamManager.GetUserControlledTeam();
             team.Tactics = SelectedTactic;
             teamManager.UpdateTheTeam(team);
 
 
             // save the players
-            var allTeamPlayers = playerManager.GetPlayersByTeamID(teamId);
+            var allTeamPlayers = playerManager.GetPlayersByTeamID(team.TeamID);
 
             foreach (var player in allTeamPlayers)
             {
@@ -90,7 +105,7 @@ namespace FarmersLeague.UI.Pages.UserTeam
                 }
                 playerManager.UpdatePlayer(player);
             }
-            return RedirectToPage(new { teamId = teamId });
+            return RedirectToPage();
         }
 
     }

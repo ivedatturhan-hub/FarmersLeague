@@ -1,7 +1,7 @@
 ﻿@page
 @model FarmersLeague.UI.Pages.UserTeam.TeamManagementModel
 @{
-    ViewData["Title"] = "Manage Line-up";
+    ViewData["Title"] = "Manage My Line-up";
 }
 
 <h2>Set Line-up & Tactics</h2>
@@ -22,62 +22,27 @@
     <h4>Starting XI</h4>
     <div class="row">
         <div class="col-md-6">
+            @for (int i = 0; i < 11; i++)
+            {
+                <label class="position-label font-weight-bold mt-2">@(i + 1). <span></span></label>
 
-            <label>1. Goalkeeper</label>
-            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
-                <option value="">-- Select Player --</option>
-            </select>
+                <select name="StarterIds" class="player-select form-control mb-2">
+                    <option value="0">-- Select Player --</option>
 
-            <label>2. Defender</label>
-            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
-                <option value="">-- Select Player --</option>
-            </select>
-
-            <label>3. Defender</label>
-            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
-                <option value="">-- Select Player --</option>
-            </select>
-
-            <label>4. Defender</label>
-            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
-                <option value="">-- Select Player --</option>
-            </select>
-
-            <label>5. Defender</label>
-            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
-                <option value="">-- Select Player --</option>
-            </select>
-
-            <label>6. Midfielder</label>
-            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
-                <option value="">-- Select Player --</option>
-            </select>
-
-            <label>7. Midfielder</label>
-            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
-                <option value="">-- Select Player --</option>
-            </select>
-
-            <label>8. Midfielder</label>
-            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
-                <option value="">-- Select Player --</option>
-            </select>
-
-            <label>9. Midfielder</label>
-            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
-                <option value="">-- Select Player --</option>
-            </select>
-
-            <label>10. Striker</label>
-            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
-                <option value="">-- Select Player --</option>
-            </select>
-
-            <label>11. Striker</label>
-            <select name="StarterIds" asp-items="Model.PlayerOptions" class="player-select form-control mb-2">
-                <option value="">-- Select Player --</option>
-            </select>
-
+                    @foreach (var player in Model.PlayerOptions)
+                    {
+                        // Check if this player's ID matches the Starter ID for this specific position
+                        if (Model.StarterIDs[i].ToString() == player.Value)
+                        {
+                            <option value="@player.Value" selected>@player.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@player.Value">@player.Text</option>
+                        }
+                    }
+                </select>
+            }
         </div>
     </div>
 
@@ -89,18 +54,37 @@
         document.addEventListener('DOMContentLoaded', function () {
 
             const dropdowns = document.querySelectorAll('.player-select');
+            const tacticDropdown = document.getElementById('SelectedTactic');
+            const positionLabels = document.querySelectorAll('.position-label span');
 
+            // 1. Dynamic Formation Labels Dictionary
+            const formations = {
+                "4-4-2": ["Goalkeeper", "Defender", "Defender", "Defender", "Defender", "Midfielder", "Midfielder", "Midfielder", "Midfielder", "Striker", "Striker"],
+                "4-3-3": ["Goalkeeper", "Defender", "Defender", "Defender", "Defender", "Midfielder", "Midfielder", "Midfielder", "Striker", "Striker", "Striker"],
+                "3-5-2": ["Goalkeeper", "Defender", "Defender", "Defender", "Midfielder", "Midfielder", "Midfielder", "Midfielder", "Midfielder", "Striker", "Striker"]
+            };
+
+            function updateLabels() {
+                const currentTactic = tacticDropdown.value;
+                const currentPositions = formations[currentTactic];
+
+                if (currentPositions) {
+                    positionLabels.forEach(function (label, index) {
+                        label.innerText = currentPositions[index];
+                    });
+                }
+            }
+
+            // 2. Duplicate Player Checker
             function updateDropdowns() {
                 const selectedPlayerIds = [];
 
-                // Find all currently selected players
                 dropdowns.forEach(d => {
                     if (d.value !== "") {
                         selectedPlayerIds.push(d.value);
                     }
                 });
 
-                // Disable those players in the other dropdowns
                 dropdowns.forEach(dropdown => {
                     Array.from(dropdown.options).forEach(option => {
                         if (option.value === "") return;
@@ -114,11 +98,14 @@
                 });
             }
 
-            // Run this every time the user changes a dropdown
+            // Event Listeners
+            tacticDropdown.addEventListener('change', updateLabels);
             dropdowns.forEach(dropdown => {
                 dropdown.addEventListener('change', updateDropdowns);
             });
 
+            // Initial run to set everything up on page load
+            updateLabels();
             updateDropdowns();
         });
     </script>
