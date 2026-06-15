@@ -12,8 +12,7 @@ namespace FarmersLeague.DL
         private string _connectionString = "Server=localhost\\SQLEXPRESS;Database=FarmersLeague;Trusted_Connection=True;TrustServerCertificate=True;";
 
         //my method to add a player to the database
-        public void AddPlayer(string Name, int Age, string Position, int BaseAttack, int BaseDefence, double MarketValue,
-             bool IsAvailable, bool IsStarting, int Condition, int Happiness, int Composure, int Aggression, int SeasonGoals, int SeasonAssists, int YellowCards, int RedCards)
+        public void AddPlayer(AdminPlayerDTO NewPlayer)
         {
             // the sql query. I match @ placeholders to properties of player class like a bridge for security i assume.
             string query = "INSERT INTO Player (Name, Age, Position, BaseAttack, BaseDefence, MarketValue, IsAvailable, IsStarting, Condition, Happiness, Composure, Aggression, SeasonGoals, SeasonAssists, YellowCards, RedCards) " +
@@ -27,22 +26,22 @@ namespace FarmersLeague.DL
 
                 // now i swap the placeholders with actual values from database.  
 
-                command.Parameters.AddWithValue("@Name", Name);
-                command.Parameters.AddWithValue("@Age", Age);
-                command.Parameters.AddWithValue("@Position", Position);
-                command.Parameters.AddWithValue("@BaseAttack", BaseAttack);
-                command.Parameters.AddWithValue("@BaseDefence", BaseDefence);
-                command.Parameters.AddWithValue("@MarketValue", MarketValue);
-                command.Parameters.AddWithValue("@IsAvailable", IsAvailable);
-                command.Parameters.AddWithValue("@IsStarting", IsStarting);
-                command.Parameters.AddWithValue("@Condition", Condition);
-                command.Parameters.AddWithValue("@Happiness", Happiness);
-                command.Parameters.AddWithValue("@Composure", Composure);
-                command.Parameters.AddWithValue("@Aggression", Aggression);
-                command.Parameters.AddWithValue("@SeasonGoals", SeasonGoals);
-                command.Parameters.AddWithValue("@SeasonAssists", SeasonAssists);
-                command.Parameters.AddWithValue("@YellowCards", YellowCards);
-                command.Parameters.AddWithValue("@RedCards", RedCards);
+                command.Parameters.AddWithValue("@Name", NewPlayer.Name);
+                command.Parameters.AddWithValue("@Age", NewPlayer.Age);
+                command.Parameters.AddWithValue("@Position", NewPlayer.Position);
+                command.Parameters.AddWithValue("@BaseAttack", NewPlayer.BaseAttack);
+                command.Parameters.AddWithValue("@BaseDefence", NewPlayer.BaseDefence);
+                command.Parameters.AddWithValue("@MarketValue", NewPlayer.MarketValue);
+                command.Parameters.AddWithValue("@IsAvailable", NewPlayer.IsAvailable);
+                command.Parameters.AddWithValue("@IsStarting", NewPlayer.IsStarting);
+                command.Parameters.AddWithValue("@Condition", NewPlayer.Condition);
+                command.Parameters.AddWithValue("@Happiness", NewPlayer.Happiness);
+                command.Parameters.AddWithValue("@Composure", NewPlayer.Composure);
+                command.Parameters.AddWithValue("@Aggression", NewPlayer.Aggression);
+                command.Parameters.AddWithValue("@SeasonGoals", NewPlayer.SeasonGoals);
+                command.Parameters.AddWithValue("@SeasonAssists", NewPlayer.SeasonAssists);
+                command.Parameters.AddWithValue("@YellowCards", NewPlayer.YellowCards);
+                command.Parameters.AddWithValue("@RedCards", NewPlayer.RedCards);
 
 
                 connection.Open();

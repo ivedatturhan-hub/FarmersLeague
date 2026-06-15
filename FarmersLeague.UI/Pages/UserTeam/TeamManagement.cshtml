@@ -75,28 +75,35 @@
                 }
             }
 
-            // 2. Duplicate Player Checker
+            // 2. Duplicate Player Checker but ignores "0" because i want to be able to choose it more than once                  
             function updateDropdowns() {
-                const selectedPlayerIds = [];
+            const selectedPlayerIds = [];
 
-                dropdowns.forEach(d => {
-                    if (d.value !== "") {
-                        selectedPlayerIds.push(d.value);
+            dropdowns.forEach(d => {
+                if (d.value !== "0" && d.value !== "") {
+                    selectedPlayerIds.push(d.value);
+                }
+            });
+
+            // 2. Loop through options and disable duplicates
+            dropdowns.forEach(dropdown => {
+                Array.from(dropdown.options).forEach(option => {
+
+                    // THE FIX: We force the "0" option to ALWAYS be clickable
+                    if (option.value === "0" || option.value === "") {
+                        option.disabled = false;
+                        return; // Stop checking this option and move to the next one
+                    }
+
+                    // Standard duplicate check for actual players
+                    if (selectedPlayerIds.includes(option.value) && option.value !== dropdown.value) {
+                        option.disabled = true;
+                    } else {
+                        option.disabled = false;
                     }
                 });
-
-                dropdowns.forEach(dropdown => {
-                    Array.from(dropdown.options).forEach(option => {
-                        if (option.value === "") return;
-
-                        if (selectedPlayerIds.includes(option.value) && option.value !== dropdown.value) {
-                            option.disabled = true;
-                        } else {
-                            option.disabled = false;
-                        }
-                    });
-                });
-            }
+            });
+        }
 
             // Event Listeners
             tacticDropdown.addEventListener('change', updateLabels);

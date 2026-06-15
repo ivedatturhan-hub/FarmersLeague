@@ -45,7 +45,7 @@
 
         // constructor for loading a player from the database (includes every property)
         public Player(int playerID, string name, int age, Positions position, int baseAttack, int baseDefence, double marketValue,
-        bool isAvailable, bool isStarting, int condition, int happiness, int composure, int aggression, int seasonGoals, int seasonAssists, int yellowCards, int redCards)
+        bool isAvailable, bool isStarting, int condition, int happiness, int composure, int aggression, int seasonGoals, int seasonAssists, int yellowCards, int redCards, int teamID)
         {
             PlayerID = playerID;
             Name = name;
@@ -64,6 +64,8 @@
             SeasonAssists = seasonAssists;
             YellowCards = yellowCards;
             RedCards = redCards;
+            TeamID = teamID;
+
         }
 
     }

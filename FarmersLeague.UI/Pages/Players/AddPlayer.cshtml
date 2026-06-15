@@ -11,19 +11,19 @@
 <form method="post">
     <div>
         <label>Player Name:</label>
-        <input type="text" asp-for="InputName" required />
+        <input type="text" asp-for="newPlayer.Name" required />
     </div>
     <br />
 
     <div>
         <label>Player Age:</label>
-        <input type="number" asp-for="InputAge" required />
+        <input type="number" asp-for="newPlayer.Age" required />
     </div>
     <br />
 
     <div class="form-group">
         <label>Player Position</label>
-        <select asp-for="InputPosition" asp-items="Html.GetEnumSelectList<FarmersLeague.ML.Player.Positions>()" class="form-control">
+        <select asp-for="newPlayer.Position" asp-items="Html.GetEnumSelectList<FarmersLeague.ML.Player.Positions>()" class="form-control">
             <option value="">-- Select a Position --</option>
         </select>
     </div>
@@ -31,31 +31,31 @@
 
     <div>
         <label>Base Attack (0-99):</label>
-        <input type="number" asp-for="InputAttack" required />
+        <input type="number" asp-for="newPlayer.BaseAttack" required />
     </div>
     <br />
 
     <div>
         <label>Base Defence (0-99):</label>
-        <input type="number" asp-for="InputDefence" required />
+        <input type="number" asp-for="newPlayer.BaseDefence" required />
     </div>
     <br />
 
     <div>
         <label>Player Market Value:</label>
-        <input type="number" asp-for="InputMarketValue" step="any" required />
+        <input type="number" asp-for="newPlayer.MarketValue" step="any" required />
     </div>
     <br />
 
     <div>
         <label>Player Composure:</label>
-        <input type="number" asp-for="InputComposure" required />
+        <input type="number" asp-for="newPlayer.Composure" required />
     </div>
     <br />
 
     <div>
         <label>Player Aggression:</label>
-        <input type="number" asp-for="InputAggression" required />
+        <input type="number" asp-for="newPlayer.Aggression" required />
     </div>
     <br />
 

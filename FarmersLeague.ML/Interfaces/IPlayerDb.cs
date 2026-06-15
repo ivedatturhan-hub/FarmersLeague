@@ -4,7 +4,7 @@ namespace FarmersLeague.ML.Interfaces
 {
     public interface IPlayerDb
     {
-        void AddPlayer(string Name, int Age, string Position, int BaseAttack, int BaseDefence, double MarketValue, bool IsAvaible, bool IsStarting, int Condition, int Happiness, int Composure, int Aggression, int SeasonGoals, int SeasonAssists, int YellowCards, int RedCards);
+        void AddPlayer(AdminPlayerDTO NewPlayer);
         List<AdminPlayerDTO> GetAllPlayersForAdmin();
         List<AdminPlayerDTO> GetPlayersWithNoTeam();
         void DeletePlayer(int playerID);

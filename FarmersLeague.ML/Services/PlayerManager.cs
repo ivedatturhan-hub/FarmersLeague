@@ -21,8 +21,17 @@ namespace FarmersLeague.ML.Services
 
 
         // method for creating a new player
-        public void CreateNewPlayer(Player newPlayer)
+        public void CreateNewPlayer(AdminPlayerDTO newPlayer)
         {
+            //translating string position to enum position for the player class
+            Player.Positions smartPosition = (Player.Positions)Enum.Parse(typeof(Player.Positions), newPlayer.Position);
+
+            // using the constructor of the player class to create a new player with the data from the dto.
+
+            Player NewPlayer = new Player(newPlayer.Name, newPlayer.Age, smartPosition, newPlayer.BaseAttack, newPlayer.BaseDefence, newPlayer.MarketValue, newPlayer.Composure, newPlayer.Aggression);
+
+
+
             //my rules for creating a new player
 
             if (string.IsNullOrWhiteSpace(newPlayer.Name))
@@ -80,10 +89,8 @@ namespace FarmersLeague.ML.Services
 
 
             // if the code faced no problem, adds the player
-            playerDb.AddPlayer(newPlayer.Name, newPlayer.Age, newPlayer.Position.ToString(), newPlayer.BaseAttack, newPlayer.BaseDefence, Convert.ToDouble(newPlayer.MarketValue),
-                newPlayer.IsAvailable, newPlayer.IsStarting, newPlayer.Condition, newPlayer.Happiness, newPlayer.Composure, newPlayer.Aggression, newPlayer.SeasonGoals, newPlayer.SeasonAssists, newPlayer.YellowCards, newPlayer.RedCards);
+            playerDb.AddPlayer(newPlayer);
         }
-
 
         // method to get all the players in the database for the admin page.
 
