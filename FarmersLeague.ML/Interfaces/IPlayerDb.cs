@@ -13,5 +13,6 @@ namespace FarmersLeague.ML.Interfaces
         List<AdminPlayerDTO> GetPlayersByTeamID(int teamID);
         void ChangePlayerTeam(int playerID, int teamID);
         void RemovePlayerFromTeam(int playerID);
+        public void UpdatePlayerStartingStatus(int playerId, bool isStarting);
     }
 }

@@ -221,5 +221,11 @@ namespace FarmersLeague.ML.Services
             playerDb.RemovePlayerFromTeam(playerID);
 
         }
+
+        // method for updating a player's starting status
+        public void UpdatePlayerStartingStatus(int playerId, bool isStarting)
+        {
+            playerDb.UpdatePlayerStartingStatus(playerId, isStarting);
+        }
     }
 }
