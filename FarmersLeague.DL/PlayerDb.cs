@@ -7,7 +7,7 @@ using FarmersLeague.ML.Interfaces;
 
 namespace FarmersLeague.DL
 {
-    public class PlayerDb: IPlayerDb
+    public class PlayerDb : IPlayerDb
     {
         private string _connectionString = "Server=localhost\\SQLEXPRESS;Database=FarmersLeague;Trusted_Connection=True;TrustServerCertificate=True;";
 
@@ -125,7 +125,7 @@ namespace FarmersLeague.DL
 
                     }
                 }
-                    
+
             }
             return playersWithNoTeam;
         }
@@ -251,15 +251,27 @@ namespace FarmersLeague.DL
                     AdminPlayerDTO player = new AdminPlayerDTO();
 
                     player.PlayerID = Convert.ToInt32(reader["PlayerID"]);
+
                     player.Name = reader["Name"].ToString();
                     player.Age = Convert.ToInt32(reader["Age"]);
                     player.Position = reader["Position"].ToString();
-                    player.MarketValue = (double)Convert.ToDecimal(reader["MarketValue"]);
-                    player.BaseAttack = Convert.ToInt32(reader["BaseAttack"]);
-                    player.BaseDefence = Convert.ToInt32(reader["BaseDefence"]);
+                    player.MarketValue = Convert.ToDouble(reader["MarketValue"]);
+
                     player.IsStarting = Convert.ToBoolean(reader["IsStarting"]);
                     player.IsAvailable = Convert.ToBoolean(reader["IsAvailable"]);
-                 
+
+                    player.BaseAttack = Convert.ToInt32(reader["BaseAttack"]);
+                    player.BaseDefence = Convert.ToInt32(reader["BaseDefence"]);
+                    player.Condition = Convert.ToInt32(reader["Condition"]);
+                    player.Happiness = Convert.ToInt32(reader["Happiness"]);
+                    player.Composure = Convert.ToInt32(reader["Composure"]);
+                    player.Aggression = Convert.ToInt32(reader["Aggression"]);
+
+                    player.SeasonGoals = Convert.ToInt32(reader["SeasonGoals"]);
+                    player.SeasonAssists = Convert.ToInt32(reader["SeasonAssists"]);
+                    player.YellowCards = Convert.ToInt32(reader["YellowCards"]);
+                    player.RedCards = Convert.ToInt32(reader["RedCards"]);
+
 
                     teamSquad.Add(player);
                 }
@@ -302,9 +314,24 @@ namespace FarmersLeague.DL
                 command.ExecuteNonQuery();
             }
         }
-            
+
+
+        // a method for updating the player's starting status. This will only change the IsStarting column.
+        public void UpdatePlayerStartingStatus(int playerID, bool isStarting)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "UPDATE Player SET IsStarting = @IsStarting WHERE PlayerID = @PlayerID";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IsStarting", isStarting);
+                command.Parameters.AddWithValue("@PlayerID", playerID);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+
+
+        }
 
     }
-
 }
     
