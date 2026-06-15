@@ -21,7 +21,7 @@ namespace FarmersLeague.UI.Pages.UserTeam
         [BindProperty]
         public List<int> StarterIDs { get; set; }
 
-        // This is a special box that holds the list of players for our dropdown menus. (AI explanation)
+        // This is a special box that holds the list of players for our dropdown menus. 
         public SelectList PlayerOptions { get; set; }
 
         public TeamManagementModel()
@@ -37,24 +37,23 @@ namespace FarmersLeague.UI.Pages.UserTeam
         public void OnGet()
         {
             // getting the only team that the user has, and its id, and also the tactics
-            var team = teamManager.GetUserControlledTeam();
-            SelectedTactic = team.Tactics;
+            var userTeam = teamManager.GetUserControlledTeam();
+            SelectedTactic = userTeam.Tactics;
             // getting all the players who plays for the spesific team
-            var players = playerManager.GetPlayersByTeamID(team.TeamID);
+            var players = playerManager.GetPlayersByTeamID(userTeam.TeamID);
 
-            // getting the ids of the players who are starting, and putting them in the StarterIDs box that we created earlier
+            // putting these players to a dropdown list I created
+            PlayerOptions = new SelectList(players, "PlayerID", "Name");
+
+            // getting the ids of the players who are starting, and putting them in the StarterIDs box. i will use this in html file to show the current starters
             StarterIDs = players.Where(p => p.IsStarting).Select(p => p.PlayerID).ToList();
 
-            // If the team is brand new or missing players, fill the rest of the list with 0s so the HTML loop doesn't crash looking for 11 slots.
+            // if the team is brand new or missing players, fill the rest of the list with 0s so the HTML loop doesn't crash looking for 11 slots.
             while (StarterIDs.Count < 11)
             {
                 StarterIDs.Add(0); // 0 represents "-- Select Player --"
             }
 
-
-
-            // putting these players to a dropdown list I created earlier
-            PlayerOptions = new SelectList(players, "PlayerID", "Name");
         }
 
 
@@ -103,7 +102,7 @@ namespace FarmersLeague.UI.Pages.UserTeam
                 {
                     player.IsStarting = false;
                 }
-                playerManager.UpdatePlayer(player);
+                playerManager.UpdatePlayerStartingStatus(player.PlayerID, player.IsStarting);
             }
             return RedirectToPage();
         }
