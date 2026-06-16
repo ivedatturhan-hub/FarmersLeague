@@ -12,7 +12,7 @@ namespace FarmersLeague.DL
         private string _connectionString = "Server=localhost\\SQLEXPRESS;Database=FarmersLeague;Trusted_Connection=True;TrustServerCertificate=True;";
 
         //my method to add a player to the database
-        public void AddPlayer(AdminPlayerDTO NewPlayer)
+        public void AddPlayer(Player NewPlayer)
         {
             // the sql query. I match @ placeholders to properties of player class like a bridge for security i assume.
             string query = "INSERT INTO Player (Name, Age, Position, BaseAttack, BaseDefence, MarketValue, IsAvailable, IsStarting, Condition, Happiness, Composure, Aggression, SeasonGoals, SeasonAssists, YellowCards, RedCards) " +

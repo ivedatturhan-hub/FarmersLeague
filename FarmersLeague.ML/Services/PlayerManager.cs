@@ -89,7 +89,7 @@ namespace FarmersLeague.ML.Services
 
 
             // if the code faced no problem, adds the player
-            playerDb.AddPlayer(newPlayer);
+            playerDb.AddPlayer(NewPlayer);
         }
 
         // method to get all the players in the database for the admin page.
