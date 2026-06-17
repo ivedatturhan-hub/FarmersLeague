@@ -15,6 +15,6 @@ namespace FarmersLeague.ML.Interfaces
         void ChangePlayerTeam(int playerID, int teamID);
         void RemovePlayerFromTeam(int playerID);
         void UpdatePlayerStartingStatus(int playerId, bool isStarting);
-        List<Player> GetStartingLineUp(int teamID);
+        List<Player> GetStartingLineup(int teamID);
     }
 }

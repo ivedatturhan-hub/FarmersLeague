@@ -330,7 +330,7 @@ namespace FarmersLeague.DL
 
 
         // a method for getting the lineup of the teams. 
-        public List<Player> GetStartingLineUp(int teamID)
+        public List<Player> GetStartingLineup(int teamID)
         {
             List<Player> startingLineup = new List<Player>();
             

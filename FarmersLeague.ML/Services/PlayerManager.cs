@@ -81,7 +81,7 @@ namespace FarmersLeague.ML.Services
                 throw new Exception("Error: Aggression must be between 0 and 100.");
             }
 
-            if (!Enum.IsDefined(typeof(Player.Positions), newPlayer.Position))
+            if (!Enum.IsDefined(typeof(Player.Positions), smartPosition))
             {
                 throw new Exception("Error: You must select a valid player position.");
             }
