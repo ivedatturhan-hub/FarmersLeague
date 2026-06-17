@@ -1,13 +1,24 @@
 ﻿using System;
 using FarmersLeague.ML;
 using System.Collections.Generic;
+using FarmersLeague.ML.Interfaces;
+using FarmersLeague.ML.DTOs;
 
 
 namespace FarmersLeague.ML.Services 
 {
     public class MatchManager
     {
-        // for now it is just fake data, later i will get real data from the db
+        private IPlayerDb playerDb;
+        private ITeamDb teamDb;
+
+        //creating a constructor
+
+        public MatchManager(IPlayerDb PlayerDb, ITeamDb TeamDb)
+        {
+           playerDb = PlayerDb;
+            teamDb = TeamDb;
+        }
         public string MatchSimulation(Team hostTeam, List<Player> hostLineup, Team visitorTeam, List<Player> visitorLineup)
         {
             // retrieving the team's overall attack and defence stats from the team class.
@@ -19,8 +30,10 @@ namespace FarmersLeague.ML.Services
 
             //Match Logic
 
+
+
             // every team will have 2 chances in a game in the pocket.
-            int baseChances = 2;
+            int baseChances = 4;
 
             // calcuating how strong each team's attack is compared to other team's defence.
             // for every 5 points of advantage in attack vs defence, the team gets 1 extra chance. same logic works opposite if the team has a disadvantage also.
@@ -31,8 +44,16 @@ namespace FarmersLeague.ML.Services
             int VisitorTeam_Advantage = (visitorTeam_Attack - hostTeam_Defence) / 5;
             int VisitorTeam_TotalChances = baseChances + VisitorTeam_Advantage;
 
-            if (HostTeam_TotalChances < 0) HostTeam_TotalChances = 0;
-            if (VisitorTeam_TotalChances < 0) VisitorTeam_TotalChances = 0;
+            if (HostTeam_TotalChances < 0) HostTeam_TotalChances = 1;
+            if (VisitorTeam_TotalChances < 0) VisitorTeam_TotalChances = 1;
+            if (hostLineup.Count != 11)
+            {
+                throw new Exception($"{hostTeam.TeamName} cannot play because they do not have exactly 11 starting players! They currently have {hostLineup.Count}.");
+            }
+            if (visitorLineup.Count != 11)
+            {
+                throw new Exception($"{visitorTeam.TeamName} cannot play because they do not have exactly 11 starting players! They currently have {visitorLineup.Count}.");
+            }
 
 
             // xG logic         
