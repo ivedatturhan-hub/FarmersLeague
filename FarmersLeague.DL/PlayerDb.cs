@@ -1,8 +1,6 @@
-﻿    using FarmersLeague.ML.DTOs;
+﻿using FarmersLeague.ML.DTOs;
 using FarmersLeague.ML;
 using Microsoft.Data.SqlClient; 
-using System.Collections.Generic;
-using System.Numerics;
 using FarmersLeague.ML.Interfaces;
 
 namespace FarmersLeague.DL
@@ -327,8 +325,81 @@ namespace FarmersLeague.DL
                 connection.Open();
                 command.ExecuteNonQuery();
             }
+            
+        }
 
 
+        // a method for getting the lineup of the teams. 
+        public List<Player> GetStartingLineUp(int teamID)
+        {
+            List<Player> startingLineup = new List<Player>();
+            
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                // We only want players with the matching TeamID AND IsStarting = 1
+                string query = "SELECT * FROM Player WHERE TeamID = @TeamID AND IsStarting = 1";
+                SqlCommand command = new SqlCommand(query, connection);
+
+                command.Parameters.AddWithValue("@TeamID", teamID);
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    // im using dto instead of model because model properties are private. im creating a dto and putting the data to the constructor
+                    AdminPlayerDTO startingPlayerDTO = new AdminPlayerDTO();
+
+                    startingPlayerDTO.PlayerID = Convert.ToInt32(reader["PlayerID"]);
+                    startingPlayerDTO.Name = reader["Name"].ToString();
+                    startingPlayerDTO.Age = Convert.ToInt32(reader["Age"]);
+                    startingPlayerDTO.Position = reader["Position"].ToString();
+                    startingPlayerDTO.MarketValue = Convert.ToDouble(reader["MarketValue"]);
+
+                    startingPlayerDTO.IsStarting = Convert.ToBoolean(reader["IsStarting"]);
+                    startingPlayerDTO.IsAvailable = Convert.ToBoolean(reader["IsAvailable"]);
+
+                    startingPlayerDTO.BaseAttack = Convert.ToInt32(reader["BaseAttack"]);
+                    startingPlayerDTO.BaseDefence = Convert.ToInt32(reader["BaseDefence"]);
+                    startingPlayerDTO.Condition = Convert.ToInt32(reader["Condition"]);
+                    startingPlayerDTO.Happiness = Convert.ToInt32(reader["Happiness"]);
+                    startingPlayerDTO.Composure = Convert.ToInt32(reader["Composure"]);
+                    startingPlayerDTO.Aggression = Convert.ToInt32(reader["Aggression"]);
+
+                    startingPlayerDTO.SeasonGoals = Convert.ToInt32(reader["SeasonGoals"]);
+                    startingPlayerDTO.SeasonAssists = Convert.ToInt32(reader["SeasonAssists"]);
+                    startingPlayerDTO.YellowCards = Convert.ToInt32(reader["YellowCards"]);
+                    startingPlayerDTO.RedCards = Convert.ToInt32(reader["RedCards"]);
+                    startingPlayerDTO.TeamID = Convert.ToInt32(reader["TeamID"]);
+
+                    // converting the DTO to the real Player model
+                    Player startingPlayer = new Player(
+                        startingPlayerDTO.PlayerID,
+                        startingPlayerDTO.Name,
+                        startingPlayerDTO.Age,
+                        Enum.Parse<Player.Positions>(startingPlayerDTO.Position),
+                        startingPlayerDTO.BaseAttack,
+                        startingPlayerDTO.BaseDefence,
+                        startingPlayerDTO.MarketValue,
+                        startingPlayerDTO.IsAvailable,
+                        startingPlayerDTO.IsStarting,
+                        startingPlayerDTO.Condition,
+                        startingPlayerDTO.Happiness,
+                        startingPlayerDTO.Composure,
+                        startingPlayerDTO.Aggression,
+                        startingPlayerDTO.SeasonGoals,
+                        startingPlayerDTO.SeasonAssists,
+                        startingPlayerDTO.YellowCards,
+                        startingPlayerDTO.RedCards,
+                        startingPlayerDTO.TeamID
+                    );
+
+                    // add it to the list
+                    startingLineup.Add(startingPlayer);
+                }
+            }
+
+            return startingLineup;
         }
 
     }
