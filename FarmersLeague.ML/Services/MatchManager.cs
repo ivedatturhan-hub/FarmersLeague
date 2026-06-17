@@ -19,7 +19,7 @@ namespace FarmersLeague.ML.Services
            playerDb = PlayerDb;
             teamDb = TeamDb;
         }
-        public string MatchSimulation(Team hostTeam, List<Player> hostLineup, Team visitorTeam, List<Player> visitorLineup)
+        public MatchReportDTO MatchSimulation(Team hostTeam, List<Player> hostLineup, Team visitorTeam, List<Player> visitorLineup)
         {
             // retrieving the team's overall attack and defence stats from the team class.
             int hostTeam_Attack = hostTeam.GetOverallAttack(hostLineup);
@@ -84,9 +84,21 @@ namespace FarmersLeague.ML.Services
                 }
             }
 
-            return $"{hostTeam.TeamName} {HomeTeam_Goals}  -  {VisitorTeam_Goals} {visitorTeam.TeamName}";
 
+            // match report
+            MatchReportDTO report = new MatchReportDTO();
+            report.FinalScore = $"{hostTeam.TeamName} {HomeTeam_Goals} - {VisitorTeam_Goals} {visitorTeam.TeamName}";
 
+            report.HostAttack = hostTeam_Attack;
+            report.HostDefence = hostTeam_Defence;
+            report.HostChances = HostTeam_TotalChances;
+
+            report.VisitorAttack = visitorTeam_Attack;
+            report.VisitorDefence = visitorTeam_Defence;
+            report.VisitorChances = VisitorTeam_TotalChances;
+
+            return report; 
         }
+        
     }
 }

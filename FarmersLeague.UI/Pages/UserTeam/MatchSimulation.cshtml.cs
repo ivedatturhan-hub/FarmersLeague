@@ -13,7 +13,7 @@ namespace FarmersLeague.UI.Pages
     public class MatchSimulationModel : PageModel
     {
         // Property to hold the final score or error message to show on the HTML page
-        public string MatchResult { get; set; } = "";
+        public MatchReportDTO MatchResult { get; set; }
 
         // creating empty boxes for the manager and databases at the top so whole page can use it.
         MatchManager matchManager;
@@ -58,8 +58,9 @@ namespace FarmersLeague.UI.Pages
             
             catch (Exception ex)
             {
+                MatchResult = new MatchReportDTO();
                 // If anything crashes (like missing teams), we show the error on the screen safely!
-                MatchResult = "Error simulating match: " + ex.Message;
+                MatchResult.FinalScore = "Error simulating match: " + ex.Message;
             }
         }
     }

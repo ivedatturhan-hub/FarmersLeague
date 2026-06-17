@@ -16,11 +16,51 @@
     </form>
 
     <!-- Here we check if the C# code gave us a result. If yes, we show the box! -->
-    @if (!string.IsNullOrEmpty(Model.MatchResult))
+    <!-- NEW STATS DASHBOARD -->
+    @if (Model.MatchResult != null)
     {
-        <div class="alert alert-info mt-5 p-4 shadow-sm border-2">
-            <h4 class="text-muted mb-3">Final Result</h4>
-            <h1 class="display-5 fw-bold text-dark">@Model.MatchResult</h1>
-        </div>
+        // If it's an error, show a basic red box
+        if (Model.MatchResult.FinalScore.StartsWith("Error"))
+        {
+            <div class="alert alert-danger" style="max-width: 500px;">
+                @Model.MatchResult.FinalScore
+            </div>
+        }
+        else
+        {
+            <div class="card" style="max-width: 500px;">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0 text-center fw-bold">@Model.MatchResult.FinalScore</h5>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-sm table-striped table-bordered text-center mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Stat</th>
+                                <th>Host Team</th>
+                                <th>Visitor Team</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Attack Power</strong></td>
+                                <td>@Model.MatchResult.HostAttack</td>
+                                <td>@Model.MatchResult.VisitorAttack</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Defence Power</strong></td>
+                                <td>@Model.MatchResult.HostDefence</td>
+                                <td>@Model.MatchResult.VisitorDefence</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Chances Created</strong></td>
+                                <td class="text-success fw-bold">@Model.MatchResult.HostChances</td>
+                                <td class="text-success fw-bold">@Model.MatchResult.VisitorChances</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
     }
 </div>
