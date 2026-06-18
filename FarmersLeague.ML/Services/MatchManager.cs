@@ -33,7 +33,7 @@ namespace FarmersLeague.ML.Services
 
 
             // every team will have 2 chances in a game in the pocket.
-            int baseChances = 4;
+            int baseChances = 6;
 
             // calcuating how strong each team's attack is compared to other team's defence.
             // for every 5 points of advantage in attack vs defence, the team gets 1 extra chance. same logic works opposite if the team has a disadvantage also.
@@ -68,7 +68,7 @@ namespace FarmersLeague.ML.Services
             for (int i = 0; i < HostTeam_TotalChances; i++)
             {
                 int opportunity = xG.Next(0, 101);
-                if (opportunity < 30)
+                if (opportunity < 25)
                 {
                     HomeTeam_Goals++;
                 }
