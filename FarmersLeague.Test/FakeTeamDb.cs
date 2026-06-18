@@ -18,6 +18,11 @@ namespace FarmersLeague.Test
             fakeTeam = FakeTeam;
         }
 
+        public FakeTeamDb()
+        {
+
+        }
+
         public void CreateTeam(int leagueID, string teamName, double budget, int points, string tactics, bool isUserControlled)
         {
             throw new NotImplementedException();
@@ -37,6 +42,11 @@ namespace FarmersLeague.Test
         public AdminTeamDTO GetTeamByID(int teamID)
         {
             return fakeTeam;
+        }
+
+        public AdminTeamDTO GetUserControlledTeam()
+        {
+            throw new NotImplementedException();
         }
 
         public void UpdateTeam(AdminTeamDTO updatedTeam)

@@ -88,8 +88,30 @@ namespace FarmersLeague.Tests
             {
                 playerManager.UpdatePlayerTeam(3, 3);
             });
+        }
 
 
+        [TestMethod]
+        public void GetAllPlayersForAdmin_ShouldReturnListOfPlayers()
+        {
+
+            //arrrange
+           AdminPlayerDTO testingPlayer = new AdminPlayerDTO { PlayerID = 4, Name = "Player 1" };
+            AdminPlayerDTO testingPlayer2 = new AdminPlayerDTO { PlayerID = 5, Name = "Player 2" };
+
+
+            IPlayerDb testingPlayerDb = new FakePlayerDb(testingPlayer, testingPlayer2);
+            ITeamDb testingTeamDb = new FakeTeamDb();
+
+            PlayerManager playerManager = new PlayerManager(testingPlayerDb, testingTeamDb);
+
+            //act 
+            List<AdminPlayerDTO> playerList = playerManager.GetAllPlayersForAdmin();
+
+            //assert
+            Assert.AreEqual(2, playerList.Count); // testing if the list contains 2 players
+            Assert.AreEqual("Player 1", playerList[0].Name); // testing if the first player in the list is named "Player 1"
+            Assert.AreEqual("Player 2", playerList[1].Name); // testing if the second player in the list is named "Player 2"
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using FarmersLeague.ML.DTOs;
+﻿using FarmersLeague.ML;
+using FarmersLeague.ML.DTOs;
 using FarmersLeague.ML.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,23 @@ namespace FarmersLeague.Test
     {
 
         private AdminPlayerDTO fakePlayer;
+        private AdminPlayerDTO fakePlayer2;
+
+        private List<AdminPlayerDTO> fakePlayerList = new List<AdminPlayerDTO>();
 
 
-        //constructor to create a fake player
+        //constructor to create a fake player db
         public FakePlayerDb(AdminPlayerDTO FakePlayer)
         {
             fakePlayer = FakePlayer;
+        }
+
+
+        // constructor to create a list with two players, so we can test the get all players method in the player manager
+        public FakePlayerDb(AdminPlayerDTO FakePlayer, AdminPlayerDTO FakePlayer2)
+        {
+            fakePlayerList.Add(FakePlayer);
+            fakePlayerList.Add(FakePlayer2);
         }
 
 
@@ -40,7 +52,7 @@ namespace FarmersLeague.Test
 
         public List<AdminPlayerDTO> GetAllPlayersForAdmin()
         {
-            throw new NotImplementedException();
+            return fakePlayerList;
         }
 
         public List<AdminPlayerDTO> GetPlayersWithNoTeam()
@@ -71,6 +83,21 @@ namespace FarmersLeague.Test
         public void ChangePlayerTeam(int playerID, int teamID)
         {
 
+        }
+
+        public void AddPlayer(Player NewPlayer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdatePlayerStartingStatus(int playerId, bool isStarting)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Player> GetStartingLineup(int teamID)
+        {
+            throw new NotImplementedException();
         }
     }
 }
