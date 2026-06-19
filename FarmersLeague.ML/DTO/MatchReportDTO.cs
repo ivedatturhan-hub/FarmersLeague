@@ -10,5 +10,8 @@
         public int VisitorAttack { get; set; }
         public int VisitorDefence { get; set; }
         public int VisitorChances { get; set; }
+
+        public int HostPoints { get; set; }
+        public int VisitorPoints { get; set; }
     }
 }

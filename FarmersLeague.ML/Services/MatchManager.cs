@@ -116,6 +116,9 @@ namespace FarmersLeague.ML.Services
             report.VisitorDefence = visitorTeam_Defence;
             report.VisitorChances = VisitorTeam_TotalChances;
 
+            report.HostPoints = hostTeam.Points;
+            report.VisitorPoints = visitorTeam.Points;
+
             return report; 
         }
         

@@ -59,7 +59,6 @@ namespace FarmersLeague.UI.Pages
             catch (Exception ex)
             {
                 MatchResult = new MatchReportDTO();
-                // If anything crashes (like missing teams), we show the error on the screen safely!
                 MatchResult.FinalScore = "Error simulating match: " + ex.Message;
             }
         }
