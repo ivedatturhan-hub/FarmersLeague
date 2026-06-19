@@ -9,13 +9,10 @@
 
 <div class="row">
     <div class="col-md-4">
-        <!-- The form that sends data back to OnPost() -->
-
 
         <div asp-validation-summary="All" style="color:red; font-weight:bold;"></div>
         <form method="post">
 
-            <!-- THE INVISIBLE BARCODE: Crucial so the database knows WHO to update -->
             <input type="hidden" asp-for="PlayerToEdit.PlayerID" />
 
             <div class="mb-3">

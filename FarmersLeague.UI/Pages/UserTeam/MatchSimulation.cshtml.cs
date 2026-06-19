@@ -46,14 +46,14 @@ namespace FarmersLeague.UI.Pages
                 Team hostTeam = new Team(hostTeamDTO.TeamID, 1, hostTeamDTO.TeamName, hostTeamDTO.Budget, hostTeamDTO.Points, "Balanced", hostTeamDTO.IsUserControlled);
                 Team visitorTeam = new Team(visitorTeamDTO.TeamID, 1, visitorTeamDTO.TeamName, visitorTeamDTO.Budget, visitorTeamDTO.Points, "Balanced", visitorTeamDTO.IsUserControlled);
 
-                // 2. Fetch the Starting Lineups from the Database
+                // getting the starting lineups for both teams from the database
                 List<Player> hostLineup = playerDb.GetStartingLineup(3);
                 List<Player> visitorLineup = playerDb.GetStartingLineup(2);
 
-                // 3. Hand everything to the MatchManager to simulate the game!
+                // giving the manager the teams and lineups to simulate the match
                 MatchResult = matchManager.MatchSimulation(hostTeam, hostLineup, visitorTeam, visitorLineup);
 
-                // fetching the teams so it can display the current points
+                // getting the teams again so it can display the current points
                 AdminTeamDTO updatedHostTeamDTO = teamDb.GetTeamByID(3);
                 AdminTeamDTO updatedVisitorTeamDTO = teamDb.GetTeamByID(2);
                 MatchResult.HostPoints = updatedHostTeamDTO.Points;

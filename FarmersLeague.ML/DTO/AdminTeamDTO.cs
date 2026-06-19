@@ -1,6 +1,5 @@
 ﻿    namespace FarmersLeague.ML.DTOs
 {
-    // The Admin Box! It holds all the data.
     public class AdminTeamDTO
     {
         public int TeamID { get; set; } 

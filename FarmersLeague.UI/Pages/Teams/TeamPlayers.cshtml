@@ -8,10 +8,8 @@
     <h2>Squad List</h2>
 
     <div class="mb-3 mt-4">
-        <!-- Button for assigning player to a team, this is holding the team id and pass it to the next page -->
         <a asp-page="/Teams/AssignPlayers" asp-route-teamId="@Model.CurrentTeamId" class="btn btn-primary">+ Assign Player to Team</a>
 
-        <!-- A handy button to go back to the main teams list -->
         <a asp-page="/Teams/AdminTeams" class="btn btn-secondary">Back to Teams</a>
     </div>
 
