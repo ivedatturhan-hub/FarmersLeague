@@ -188,5 +188,21 @@ namespace FarmersLeague.DL
             }
             return userTeam;
         }
+
+        public void UpdatePoints(int teamId, int points)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                // This SQL query grabs the current points, adds the new points, and saves it!
+                string query = "UPDATE Team SET Points = Points + @Points WHERE TeamID = @TeamID";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Points", points);
+                command.Parameters.AddWithValue("@TeamID", teamId);
+
+                connection.Open();
+                command.ExecuteNonQuery(); 
+            }
+        }
     }
 }

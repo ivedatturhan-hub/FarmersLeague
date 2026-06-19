@@ -19,6 +19,8 @@ namespace FarmersLeague.ML.Services
            playerDb = PlayerDb;
             teamDb = TeamDb;
         }
+
+        // method to simulate a match between two teams
         public MatchReportDTO MatchSimulation(Team hostTeam, List<Player> hostLineup, Team visitorTeam, List<Player> visitorLineup)
         {
             // retrieving the team's overall attack and defence stats from the team class.
@@ -28,9 +30,9 @@ namespace FarmersLeague.ML.Services
             int visitorTeam_Attack = visitorTeam.GetOverallAttack(visitorLineup);
             int visitorTeam_Defence = visitorTeam.GetOverallDefence(visitorLineup);
 
+
+
             //Match Logic
-
-
 
             // every team will have 2 chances in a game in the pocket.
             int baseChances = 6;
@@ -84,6 +86,23 @@ namespace FarmersLeague.ML.Services
                 }
             }
 
+
+            //update the league points
+
+            if (HomeTeam_Goals > VisitorTeam_Goals)
+            {
+                teamDb.UpdatePoints(hostTeam.TeamID, 3);
+            }
+        
+            else if (HomeTeam_Goals < VisitorTeam_Goals)
+            {
+                teamDb.UpdatePoints(visitorTeam.TeamID, 3);
+            }
+            else
+            {
+                teamDb.UpdatePoints(hostTeam.TeamID, 1);
+                teamDb.UpdatePoints(visitorTeam.TeamID, 1);
+            }
 
             // match report
             MatchReportDTO report = new MatchReportDTO();

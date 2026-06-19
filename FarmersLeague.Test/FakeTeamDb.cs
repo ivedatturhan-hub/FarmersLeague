@@ -58,5 +58,10 @@ namespace FarmersLeague.Test
         {
             fakeTeam.Budget = newBudget;
         }
+
+        public void UpdatePoints(int teamId, int points)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
