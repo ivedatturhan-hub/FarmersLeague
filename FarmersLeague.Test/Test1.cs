@@ -113,9 +113,29 @@ namespace FarmersLeague.Tests
             Assert.AreEqual("Player 1", playerList[0].Name); // testing if the first player in the list is named "Player 1"
             Assert.AreEqual("Player 2", playerList[1].Name); // testing if the second player in the list is named "Player 2"
         }
+
+
+        [TestMethod]
+        public void UpdatePoints_ShouldUpdateTeamPoints()
+        {
+            // arrange
+            AdminTeamDTO testingTeam = new AdminTeamDTO { TeamID = 6, Points = 0};
+
+            IPlayerDb testingPlayerDb = new FakePlayerDb();
+            ITeamDb testingTeamDb = new FakeTeamDb(testingTeam);
+
+            TeamManager teamManager = new TeamManager(testingPlayerDb, testingTeamDb);
+
+            // act
+            teamManager.UpdatePoints(6, 3);
+            int updatedPoints = testingTeamDb.GetTeamByID(6).Points;
+
+            // assert
+            Assert.AreEqual(3, updatedPoints); 
+
+        }
     }
 }
 
 
 
-    

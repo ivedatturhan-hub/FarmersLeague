@@ -78,7 +78,12 @@ namespace FarmersLeague.ML.Services
             }
             return team;
         }
-    }
+
+        public void UpdatePoints(int teamId, int points)
+        {
+            teamDb.UpdatePoints(teamId, points);
+        }
+}
 }
 
 

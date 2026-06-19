@@ -32,6 +32,11 @@ namespace FarmersLeague.Test
             fakePlayerList.Add(FakePlayer2);
         }
 
+        // constructor with zero players so i can test a team without having to add players to the fake db
+        public FakePlayerDb()
+        {
+
+        }
 
 
 
