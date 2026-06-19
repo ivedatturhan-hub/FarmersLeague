@@ -52,6 +52,12 @@ namespace FarmersLeague.UI.Pages
 
                 // 3. Hand everything to the MatchManager to simulate the game!
                 MatchResult = matchManager.MatchSimulation(hostTeam, hostLineup, visitorTeam, visitorLineup);
+
+                // fetching the teams so it can display the current points
+                AdminTeamDTO updatedHostTeamDTO = teamDb.GetTeamByID(3);
+                AdminTeamDTO updatedVisitorTeamDTO = teamDb.GetTeamByID(2);
+                MatchResult.HostPoints = updatedHostTeamDTO.Points;
+                MatchResult.VisitorPoints = updatedVisitorTeamDTO.Points;
             }
 
                 
