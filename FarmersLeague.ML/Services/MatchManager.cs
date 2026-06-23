@@ -21,14 +21,41 @@ namespace FarmersLeague.ML.Services
         }
 
         // method to simulate a match between two teams
-        public MatchReportDTO MatchSimulation(Team hostTeam, List<Player> hostLineup, Team visitorTeam, List<Player> visitorLineup)
+
+
+        public MatchReportDTO MatchSimulation(int hostTeamId, int visitorTeamId)
         {
-            // retrieving the team's overall attack and defence stats from the team class.
+            // retrieving the teams from the database using their IDs
+            AdminTeamDTO hostTeamDTO = teamDb.GetTeamByID(hostTeamId);
+            AdminTeamDTO visitorTeamDTO = teamDb.GetTeamByID(visitorTeamId);
+
+            // creating team objects from the retrieved DTOs
+
+            Team hostTeam = new Team(hostTeamDTO.TeamID, hostTeamDTO.TeamName, hostTeamDTO.Budget, hostTeamDTO.Points, hostTeamDTO.Tactics, hostTeamDTO.IsUserControlled);
+            Team visitorTeam = new Team(visitorTeamDTO.TeamID, visitorTeamDTO.TeamName, visitorTeamDTO.Budget, visitorTeamDTO.Points, visitorTeamDTO.Tactics, visitorTeamDTO.IsUserControlled);
+
+
+            // retrieving the starting lineups and overal attack and defence stats for both teams from the database
+            List<Player> hostLineup = playerDb.GetStartingLineup(hostTeamId);
+            List<Player> visitorLineup = playerDb.GetStartingLineup(visitorTeamId);
+
             int hostTeam_Attack = hostTeam.GetOverallAttack(hostLineup);
             int hostTeam_Defence = hostTeam.GetOverallDefence(hostLineup);
 
             int visitorTeam_Attack = visitorTeam.GetOverallAttack(visitorLineup);
             int visitorTeam_Defence = visitorTeam.GetOverallDefence(visitorLineup);
+
+
+            /*  OLD VERSION (LIKE IN THE PORTFOLIO)
+            public MatchReportDTO MatchSimulation(Team hostTeam, List<Player> hostLineup, Team visitorTeam, List<Player> visitorLineup)
+            {
+                // retrieving the team's overall attack and defence stats from the team class.
+                int hostTeam_Attack = hostTeam.GetOverallAttack(hostLineup);
+                int hostTeam_Defence = hostTeam.GetOverallDefence(hostLineup);
+
+                int visitorTeam_Attack = visitorTeam.GetOverallAttack(visitorLineup);
+                int visitorTeam_Defence = visitorTeam.GetOverallDefence(visitorLineup);
+            */
 
 
 
@@ -91,18 +118,21 @@ namespace FarmersLeague.ML.Services
 
             if (HomeTeam_Goals > VisitorTeam_Goals)
             {
-                teamDb.UpdatePoints(hostTeam.TeamID, 3);
+                teamDb.UpdatePoints(hostTeamId, 3);
             }
         
             else if (HomeTeam_Goals < VisitorTeam_Goals)
             {
-                teamDb.UpdatePoints(visitorTeam.TeamID, 3);
+                teamDb.UpdatePoints(visitorTeamId, 3);
             }
             else
             {
-                teamDb.UpdatePoints(hostTeam.TeamID, 1);
-                teamDb.UpdatePoints(visitorTeam.TeamID, 1);
+                teamDb.UpdatePoints(hostTeamId, 1);
+                teamDb.UpdatePoints(visitorTeamId, 1);
             }
+
+            AdminTeamDTO updatedHostTeam = teamDb.GetTeamByID(hostTeamId);
+            AdminTeamDTO updatedVisitorTeam = teamDb.GetTeamByID(visitorTeamId);
 
             // match report
             MatchReportDTO report = new MatchReportDTO();
@@ -116,8 +146,8 @@ namespace FarmersLeague.ML.Services
             report.VisitorDefence = visitorTeam_Defence;
             report.VisitorChances = VisitorTeam_TotalChances;
 
-            report.HostPoints = hostTeam.Points;
-            report.VisitorPoints = visitorTeam.Points;
+            report.HostPoints = updatedHostTeam.Points;
+            report.VisitorPoints = updatedVisitorTeam.Points;
 
             return report; 
         }

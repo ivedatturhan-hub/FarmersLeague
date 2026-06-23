@@ -39,6 +39,14 @@ namespace FarmersLeague.UI.Pages
         {
             try
             {
+
+                MatchResult = matchManager.MatchSimulation(3, 2);
+
+                
+
+                /*  OLD VERSION (PORTFOLIO VERSION)
+                   
+                 
                 AdminTeamDTO hostTeamDTO = teamDb.GetTeamByID(3);
                 AdminTeamDTO visitorTeamDTO = teamDb.GetTeamByID(2);
 
@@ -58,7 +66,9 @@ namespace FarmersLeague.UI.Pages
                 AdminTeamDTO updatedVisitorTeamDTO = teamDb.GetTeamByID(2);
                 MatchResult.HostPoints = updatedHostTeamDTO.Points;
                 MatchResult.VisitorPoints = updatedVisitorTeamDTO.Points;
+                */
             }
+
 
                 
             
